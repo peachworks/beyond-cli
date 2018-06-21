@@ -1,0 +1,8 @@
+{
+  "name": "lodash-legacy",
+  "version": "1.0.0",
+  "description": "older version of lodash",
+  "dependencies": {
+    "lodash": "2.4.1" 
+  }
+}

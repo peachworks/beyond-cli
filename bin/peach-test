@@ -1,0 +1,29 @@
+#!/usr/bin/env node
+'use strict';
+
+let program                    = require('commander');
+let TestProcess                = require('../lib/test-process');
+let setupConsoleLoggingHelpers = require('../lib/setup-console-logging-helpers');
+
+setupConsoleLoggingHelpers();
+
+program
+  .option('-w, --watch', 'Watch files for changes and re-run tests automatically.')
+  .parse(process.argv);
+
+try {
+
+  let config = {
+    watch   : program.watch
+  };
+
+  let testProcess = new TestProcess(config);
+  testProcess.test();
+
+} catch (ex) {
+
+  console.error(ex);
+  if (ex.stack) console.error(ex.stack);
+  return false;
+  
+}

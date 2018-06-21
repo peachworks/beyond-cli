@@ -1,0 +1,33 @@
+#!/usr/bin/env node
+'use strict';
+
+let BuildProcess               = require('../lib/build-process');
+let program                    = require('commander');
+let setupConsoleLoggingHelpers = require('../lib/setup-console-logging-helpers');
+
+setupConsoleLoggingHelpers();
+
+program
+  .option('-v, --verbose', 'Verbose build output.')
+  .option('--skip-dp-check', 'Skips dependencies check.')
+  .option('--preserve-symlinks', 'Preserve symbolic links during build.')
+  .parse(process.argv);
+
+try {
+
+  let config = {
+    preserveSymlinks      : program.preserveSymlinks,
+    verbose               : program.verbose,
+    skipDependenciesCheck : program.skipDpCheck
+  };
+  
+  let buildProcess = new BuildProcess(config);
+  buildProcess.build();
+  
+} catch (ex) {
+
+  console.error(ex);
+  if (ex.stack) console.error(ex.stack);
+  return false;
+  
+}

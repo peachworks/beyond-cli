@@ -1,0 +1,29 @@
+#!/usr/bin/env node
+'use strict';
+
+let BuildProcess               = require('../lib/build-process');
+let program                    = require('commander');
+let setupConsoleLoggingHelpers = require('../lib/setup-console-logging-helpers');
+
+setupConsoleLoggingHelpers();
+
+program
+  .parse(process.argv);
+
+try {
+
+  let buildProcess = new BuildProcess({});
+  let cleanPromise = new Promise(buildProcess.clean);
+
+  cleanPromise
+    .then(() => {
+      console.info('Dist directory removed.');
+    });
+
+} catch (ex) {
+
+  console.error(ex);
+  if (ex.stack) console.error(ex.stack);
+  return false;
+  
+}

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+  <head>
+    <title>Beyond App</title>
+
+    {% if PeachWorksApp.session.development %}
+    <base href="/preview/accounts/{{PeachWorksApp.accountId}}/">
+    {% else %}
+    <base href="/accounts/{{PeachWorksApp.accountId}}/">
+    {% endif %}
+
+    <!-- General META -->
+  	<meta charset="utf-8">
+  	<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+  	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+  	<meta name="apple-mobile-web-app-capable" content="yes">
+  	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <link rel="shortcut icon" href="/assets/img/icons/favicon.png">
+    <link rel="apple-touch-icon-precomposed" sizes="1040x1040" href="/assets/img/icons/apple-touch-icon-1040-precomposed.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="1024x1024" href="/assets/img/icons/apple-touch-icon-1024-precomposed.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/img/icons/apple-touch-icon-144-precomposed.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/img/icons/apple-touch-icon-114-precomposed.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/img/icons/apple-touch-icon-72-precomposed.png" />
+    <link rel="apple-touch-icon-precomposed" href="/assets/img/icons/apple-touch-icon-57-precomposed.png" />
+
+    <link rel="stylesheet" href="https://cdn-public-peach.peachworks.com/peach.css/0.7.9/peach.min.css" />
+    <link rel="stylesheet" href="https://cdn-public-peach.peachworks.com/app-runner/2.1.0/app.css" />
+
+    {% if watchSocket %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.js"></script>
+    {% endif %}
+
+    <style>
+      #app-runner {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        border: none;
+      }
+    </style>
+  </head>
+  <body beyond-page ng-app="appRunner">
+  	<div class="beyond-page-wrapper" layout="column">
+  		<beyond-notice></beyond-notice>
+  		<beyond-toolbar></beyond-toolbar>
+  		<div class="beyond-page-content-row" layout="row" flex>
+  			<beyond-sidenav></beyond-sidenav>
+
+        <div id="content" ng-class="{'sidenav-open': states.showSidenav}">
+          <div class="app-loader" ng-if="isLoadingApp">
+            <div layout="row" layout-sm="column" layout-align="space-around">
+              <md-progress-circular md-mode="indeterminate" md-diameter="96"></md-progress-circular>
+            </div>
+          </div>
+        </div>
+
+        <beyond-apps-menu></beyond-apps-menu>
+  			<beyond-usermenu></beyond-usermenu>
+  		</div>
+  	</div>
+  </body>
+
+  <script>
+    window.PeachWorksFramework = {{PeachWorksApp|json|raw}};
+  </script>
+
+  <script src="https://cdn-public-peach.peachworks.com/vendor/core-js/2.4.0/core.min.js"></script>
+  <script src="https://cdn-public-peach.peachworks.com/vendor/es6-promise/3.2.1/es6-promise.min.js"></script>
+  <script src="https://cdn-public-peach.peachworks.com/promise-finally/1.0.1/finally.js"></script>
+  <script src="https://cdn-public-peach.peachworks.com/vendor/fetch/0.11.0/fetch.min.js"></script>
+  <script src="https://cdn-public-peach.peachworks.com/vendor/lodash/3.10.1/lodash.min.js"></script>
+  <script src="https://cdn-public-peach.peachworks.com/weak-map/1.0.0/weak-map.js"></script>
+  <script src="https://cdn-public-peach.peachworks.com/mutation-observer/1.0.0/mutation-observer.js"></script>
+  <script src="https://cdn-public-peach.peachworks.com/web-router/1.3.0/server/peach-router.server.min.js"></script>
+  <script src="https://cdn-public-peach.peachworks.com/app-runner/2.1.0/app.js"></script>
+
+  <script>
+    (function() {
+
+      var cookieNames = ['peach_dev_sid', 'peach_sid', 'peach_sid_ref', 'peach_sid_expiry', 'peach_app_tokens', 'peach_app_token_{{ appKey }}'];
+      var appTokens = angular.fromJson(decodeURIComponent('{{ tokenApps }}') || {});
+      var appToken = appTokens && appTokens['{{ appKey }}'] ?
+        encodeURI(angular.toJson(appTokens['{{ appKey }}'])) :
+        null;
+
+      document.cookie.split(";").forEach(function(c) {
+        if(c && cookieNames.indexOf(c.split('=')[0].trim()) > -1) {
+          document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+        }
+      });
+      {% if PeachWorksApp.session.development %} document.cookie="peach_dev_sid={{ tokenAccess }};path=/"; {% endif %}
+      {% if !PeachWorksApp.session.development %} document.cookie="peach_sid={{ tokenAccess }};path=/"; {% endif %}
+      document.cookie="peach_sid_ref={{ tokenRefresh }};path=/";
+      document.cookie="peach_sid_expiry={{ tokenExpiry }};path=/";
+      document.cookie="peach_app_tokens={{ tokenApps }};path=/";
+
+      if(appToken) {
+        document.cookie="peach_app_token_{{ appKey }}=" + appToken + ";path=/";
+      }
+
+      if(window.location.pathname === '/') {
+        {% if PeachWorksApp.session.development %}
+          {% if PeachWorksApp.accountId %}
+            window.location.pathname = '/preview/accounts/{{PeachWorksApp.accountId}}/apps/{{ appKey }}';
+          {% elseif accounts.length === 0 %}
+            alerts('The login you used does not have any accounts assigned to it.');
+          {% else %}
+            window.location.pathname = '/preview/accounts/{{accounts[0].id}}/apps/{{ appKey }}';
+          {% endif %}
+        {% else %}
+          {% if PeachWorksApp.accountId %}
+            window.location.pathname = '/accounts/{{PeachWorksApp.accountId}}/apps/{{ appKey }}';
+          {% elseif accounts.length === 0 %}
+            alerts('The login you used does not have any accounts assigned to it.');
+          {% else %}
+            window.location.pathname = '/accounts/{{accounts[0].id}}/apps/{{ appKey }}';
+          {% endif %}
+        {% endif %}
+      }
+
+      {% if watchSocket %}
+      
+      var socket = io.connect('{{protocol}}://{{host}}:{{port}}');
+
+      socket.on('connect', function(data) {
+        console.log('>>Beyond CLI: Development server socket connected, watching for changes...');
+      });
+
+      socket.on('BeyondReloadIframe', function() {
+        console.log('>>Beyond CLI: App code change detected, reloading...');
+        document.getElementById('app-runner').src = document.getElementById('app-runner').src;
+      });
+
+      {% endif %}
+
+    })();
+  </script>
+</html>

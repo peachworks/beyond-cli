@@ -1,0 +1,41 @@
+#!/usr/bin/env node
+'use strict';
+
+process.title = 'beyond';
+
+let program                    = require('commander');
+let pkge                       = require('../package.json');
+let semver                     = require('semver');
+let setupConsoleLoggingHelpers = require('../lib/setup-console-logging-helpers');
+let versionCheck               = require('../lib/version-check');
+
+setupConsoleLoggingHelpers();
+
+let versionCheckPromise = new Promise(versionCheck);
+
+versionCheckPromise
+  .then((latestRelease) => {
+    
+    if(semver.gt(latestRelease.tag_name, pkge.version)) {
+      console.verbose('\n\n----------------------------------------------------------');
+      console.verbose('There is a new version of beyond-cli Available:', latestRelease.tag_name);
+      console.verbose('To update, run: npm install -g beyond-cli');
+      console.verbose('----------------------------------------------------------');
+    }
+
+    program
+      .version(pkge.version)
+      .command('build', 'Rebuild the project for distribution.')
+      .command('clean', 'Remove all distribution files.')
+      .command('dev', 'Startup a development session.')
+      .command('serve', 'Startup a session using the distributable files.')
+      .command('test', 'Run unit tests.')
+      .command('report', 'Run report in paql or js')
+      .parse(process.argv);
+
+  })
+  .catch((error) => {
+
+    console.error(error);
+    
+  });

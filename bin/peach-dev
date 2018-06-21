@@ -1,0 +1,71 @@
+#!/usr/bin/env node
+'use strict';
+
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
+let constants                  = require('../lib/const');
+let login                      = require('../lib/login');
+let program                    = require('commander');
+let RunnerProcess              = require('../lib/runner-process');
+let setupConsoleLoggingHelpers = require('../lib/setup-console-logging-helpers');
+
+setupConsoleLoggingHelpers();
+
+program
+  .option('-c, --customer', 'Run against a customer account. Defaults to developer.')
+  .option('-a, --account [value]', 'Use the given account ID as the default account to load.')
+  .option('-k, --key [value]', 'Path to a secure file where credentials are stored in the format username:password.')
+  .option('-t, --token [value]', 'Impersonation token. This takes priority over -k|--key.')
+  .option('-p, --port [value]', 'Use the given port for the web server.')
+  .option('-d, --devport [value]', 'Use the given port for the webpack dev server. In not given we will find some automatically.')
+  .option('-o, --host [value]', 'Use the given host for the web server.')
+  .option('-s, --ssl', 'Runs server using https protocol.')
+  .option('-m, --vhost', 'If running in a virtual machine, use this flag to automatically listen on 0.0.0.0 instead of localhost by default.')
+  .option('-e, --env [value]', 'The API environment to use. Defaults to production. Options: dev, staging, prod.')
+  .option('-v, --verbose', 'Verbose build output.')
+  .option('-w, --watch [value]', 'Watch for changes and reload the browser. If any value given (in milliseconds), it will poll for changes each X ms.')
+  .option('--preserve-symlinks', 'Preserve symbolic links during build.')
+  .parse(process.argv);
+
+try {
+
+  let config       = {
+    accountId        : (program.account) ? program.account: null,
+    accountType      : (program.customer) ? constants.ACCT_TYPE_CUSTOMER : constants.ACCT_TYPE_DEVELOPER,
+    apiBaseUrl       : constants.API_PROD_URL,
+    env              : (program.env) ? program.env.toUpperCase() : constants.ENV_TYPE_PROD,
+    host             : program.host || constants.DEFAULT_HOST,
+    port             : program.port || constants.DEFAULT_PORT,
+    devPort          : program.devport || null,
+    ssl              : program.ssl || false,
+    vhost            : program.vhost || false,
+    serveDist        : false,
+    preserveSymlinks : program.preserveSymlinks,
+    verbose          : program.verbose,
+    watch            : program.watch || false
+  };
+
+  if (config.env === constants.ENV_TYPE_STAGING) {
+    config.apiBaseUrl = constants.API_STAGING_URL;
+  } else if (config.env === constants.ENV_TYPE_DEV) {
+    config.apiBaseUrl = constants.API_DEV_URL;
+  }
+
+  login(program, config).then(() => {
+
+      try {
+        let runnerProcess = new RunnerProcess(config);
+        runnerProcess.start();
+      } catch (ex) {
+        return Promise.reject(ex);
+      }
+
+    });
+
+} catch (ex) {
+
+  console.error(ex);
+  if (ex.stack) console.error(ex.stack);
+  return false;
+
+}
