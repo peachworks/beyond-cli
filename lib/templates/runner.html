@@ -2,10 +2,10 @@
   <head>
     <title>Beyond App</title>
 
-    {% if PeachWorksApp.session.development %}
-    <base href="/preview/accounts/{{PeachWorksApp.accountId}}/">
+    {% if BeyondApp.session.development %}
+    <base href="/preview/accounts/{{BeyondApp.accountId}}/">
     {% else %}
-    <base href="/accounts/{{PeachWorksApp.accountId}}/">
+    <base href="/accounts/{{BeyondApp.accountId}}/">
     {% endif %}
 
     <!-- General META -->
@@ -24,8 +24,8 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/img/icons/apple-touch-icon-72-precomposed.png" />
     <link rel="apple-touch-icon-precomposed" href="/assets/img/icons/apple-touch-icon-57-precomposed.png" />
 
-    <link rel="stylesheet" href="https://cdn-public-peach.peachworks.com/peach.css/0.7.9/peach.min.css" />
-    <link rel="stylesheet" href="https://cdn-public-peach.peachworks.com/app-runner/2.1.0/app.css" />
+    <link rel="stylesheet" href="https://cdn-public-peach.peachworks.com/beyond-css/1.0.1/beyond.min.css" />
+    <link rel="stylesheet" href="https://cdn-public-peach.peachworks.com/beyond-app-runner/1.0.1/app.css" />
 
     {% if watchSocket %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.js"></script>
@@ -62,7 +62,7 @@
   </body>
 
   <script>
-    window.PeachWorksFramework = {{PeachWorksApp|json|raw}};
+    window.BeyondFramework = {{BeyondApp|json|raw}};
   </script>
 
   <script src="https://cdn-public-peach.peachworks.com/vendor/core-js/2.4.0/core.min.js"></script>
@@ -72,8 +72,8 @@
   <script src="https://cdn-public-peach.peachworks.com/vendor/lodash/3.10.1/lodash.min.js"></script>
   <script src="https://cdn-public-peach.peachworks.com/weak-map/1.0.0/weak-map.js"></script>
   <script src="https://cdn-public-peach.peachworks.com/mutation-observer/1.0.0/mutation-observer.js"></script>
-  <script src="https://cdn-public-peach.peachworks.com/web-router/1.3.0/server/peach-router.server.min.js"></script>
-  <script src="https://cdn-public-peach.peachworks.com/app-runner/2.1.0/app.js"></script>
+  <script src="https://cdn-public-peach.peachworks.com/beyond-js-web-router/1.0.0/server/beyond-js-web-router.server.min.js"></script>
+  <script src="https://cdn-public-peach.peachworks.com/beyond-app-runner/1.0.1/app.js"></script>
 
   <script>
     (function() {
@@ -89,8 +89,8 @@
           document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
         }
       });
-      {% if PeachWorksApp.session.development %} document.cookie="peach_dev_sid={{ tokenAccess }};path=/"; {% endif %}
-      {% if !PeachWorksApp.session.development %} document.cookie="peach_sid={{ tokenAccess }};path=/"; {% endif %}
+      {% if BeyondApp.session.development %} document.cookie="peach_dev_sid={{ tokenAccess }};path=/"; {% endif %}
+      {% if !BeyondApp.session.development %} document.cookie="peach_sid={{ tokenAccess }};path=/"; {% endif %}
       document.cookie="peach_sid_ref={{ tokenRefresh }};path=/";
       document.cookie="peach_sid_expiry={{ tokenExpiry }};path=/";
       document.cookie="peach_app_tokens={{ tokenApps }};path=/";
@@ -100,17 +100,17 @@
       }
 
       if(window.location.pathname === '/') {
-        {% if PeachWorksApp.session.development %}
-          {% if PeachWorksApp.accountId %}
-            window.location.pathname = '/preview/accounts/{{PeachWorksApp.accountId}}/apps/{{ appKey }}';
+        {% if BeyondApp.session.development %}
+          {% if BeyondApp.accountId %}
+            window.location.pathname = '/preview/accounts/{{BeyondApp.accountId}}/apps/{{ appKey }}';
           {% elseif accounts.length === 0 %}
             alerts('The login you used does not have any accounts assigned to it.');
           {% else %}
             window.location.pathname = '/preview/accounts/{{accounts[0].id}}/apps/{{ appKey }}';
           {% endif %}
         {% else %}
-          {% if PeachWorksApp.accountId %}
-            window.location.pathname = '/accounts/{{PeachWorksApp.accountId}}/apps/{{ appKey }}';
+          {% if BeyondApp.accountId %}
+            window.location.pathname = '/accounts/{{BeyondApp.accountId}}/apps/{{ appKey }}';
           {% elseif accounts.length === 0 %}
             alerts('The login you used does not have any accounts assigned to it.');
           {% else %}

@@ -2,10 +2,10 @@
   <head>
     <title>Beyond App</title>
 
-    {% if PeachWorksApp.session.development %}
-    <base href="/preview/accounts/{{PeachWorksApp.accountId}}/{{PeachWorksApp.appPath}}">
+    {% if BeyondApp.session.development %}
+    <base href="/preview/accounts/{{BeyondApp.accountId}}/{{BeyondApp.appPath}}">
     {% else %}
-    <base href="/accounts/{{PeachWorksApp.accountId}}/{{PeachWorksApp.appPath}}">
+    <base href="/accounts/{{BeyondApp.accountId}}/{{BeyondApp.appPath}}">
     {% endif %}
 
     <!-- General META -->
@@ -56,13 +56,13 @@
     <div id="page_frame">
       <!-- render root selector for app, like <app-root></app-root> -->
       {% autoescape true %}
-      <{{PeachWorksApp.angular.rootSelector}}>Loading...</{{PeachWorksApp.angular.rootSelector}}>
+      <{{BeyondApp.angular.rootSelector}}>Loading...</{{BeyondApp.angular.rootSelector}}>
       {% endautoescape %}
     </div>
 
     <script>
 
-      window.PeachWorksApp = {{PeachWorksApp|json|raw}};
+      window.BeyondApp = {{BeyondApp|json|raw}};
 
       // overwrite default pushState function to make it send some custom event
       // did that so we can catch angular 5 router routes changes
@@ -104,7 +104,7 @@
     <script src="{{protocol}}://{{host}}:{{port}}/main.js"></script>
     {% endif %}
 
-    <script src="https://cdn-public-peach.peachworks.com/web-router/1.3.0/angular/peach-router.angular.min.js"></script>
+    <script src="https://cdn-public-peach.peachworks.com/beyond-js-web-router/1.0.0/angular/beyond-js-web-router.angular.min.js"></script>
 
   </body>
 </html>
