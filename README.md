@@ -17,14 +17,14 @@ To prevent issues, you will want to ensure that you are able to install packages
 Being a CLI tool, Beyond is intended to be installed as a global node module.  You can install it easily with:
 
 ```
-$ npm install -g beyond-cli
+$ npm install -g @getbeyond/beyond-cli
 ```
 
 ### Update
 Occasionally, we will release new features into the tool.  To make this exposure easy to see, you will receive a message when you run any Beyond command notifying you of a new release.  You can update just as easily as installing with:
 
 ```
-$ npm install -g beyond-cli
+$ npm install -g @getbeyond/beyond-cli
 ```
 
 ### Build
