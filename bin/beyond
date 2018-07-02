@@ -19,7 +19,7 @@ versionCheckPromise
     if(semver.gt(latestRelease.tag_name, pkge.version)) {
       console.verbose('\n\n----------------------------------------------------------');
       console.verbose('There is a new version of beyond-cli Available:', latestRelease.tag_name);
-      console.verbose('To update, run: npm install -g beyond-cli');
+      console.verbose('To update, run: npm install -g @getbeyond/beyond-cli');
       console.verbose('----------------------------------------------------------');
     }
 
