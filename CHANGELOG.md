@@ -8,7 +8,7 @@
 * No changes
 
 ### Bug Fixes
-* Beyond key file path now supports1 `~` as home dir
+* Beyond key file path now supports `~` as home dir
 
 <a name="1.0.5"></a>
 # [1.0.5](https://github.com/getbeyond/beyond-cli/compare/v1.0.4...v1.0.5) (2018-07-06)
