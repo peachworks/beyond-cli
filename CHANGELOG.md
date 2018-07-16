@@ -2,10 +2,10 @@
 # [1.1.0](https://github.com/getbeyond/beyond-cli/compare/v1.0.5...v1.1.0) (2018-07-06)
 
 ### Features
-* No new features
+* Added ability to use environment variable (BEYOND_KEY) to pass Beyond key file
 
 ### Breaking Changes
-* Added ability to use environment variable (BEYOND_KEY) to pass Beyond key file
+* No changes
 
 ### Bug Fixes
 * Beyond key file path now supports1 `~` as home dir
