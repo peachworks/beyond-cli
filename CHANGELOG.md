@@ -1,5 +1,5 @@
 <a name="1.1.0"></a>
-# [1.1.0](https://github.com/getbeyond/beyond-cli/compare/v1.0.5...v1.1.0) (2018-07-06)
+# [1.1.0](https://github.com/getbeyond/beyond-cli/compare/v1.0.5...v1.1.0) (2018-07-16)
 
 ### Features
 * Added ability to use environment variable (BEYOND_KEY) to pass Beyond key file
