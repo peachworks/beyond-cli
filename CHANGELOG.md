@@ -1,3 +1,9 @@
+<a name="1.2.0"></a>
+# [1.2.0](https://github.com/getbeyond/beyond-cli/compare/v1.1.0...v1.2.0) (2018-07-27)
+
+### Features
+* Added support for legacy apps development (ngPeach based ngJs 1.4 apps)
+
 <a name="1.1.0"></a>
 # [1.1.0](https://github.com/getbeyond/beyond-cli/compare/v1.0.5...v1.1.0) (2018-07-16)
 
