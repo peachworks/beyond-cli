@@ -1,3 +1,9 @@
+<a name="1.2.1"></a>
+# [1.2.1](https://github.com/getbeyond/beyond-cli/compare/v1.2.0...v1.2.1) (2018-08-10)
+
+### Breaking Changes
+* web-beyond-js-web-router v1.0.3
+
 <a name="1.2.0"></a>
 # [1.2.0](https://github.com/getbeyond/beyond-cli/compare/v1.1.0...v1.2.0) (2018-07-27)
 
