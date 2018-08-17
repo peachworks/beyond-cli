@@ -1,3 +1,9 @@
+<a name="1.3.0"></a>
+# [1.3.0](https://github.com/getbeyond/beyond-cli/compare/v1.2.1...v1.3.0) (2018-08-17)
+
+### Features
+* Added config class, showing used env when running a server - staging env is now default for customer mode
+
 <a name="1.2.1"></a>
 # [1.2.1](https://github.com/getbeyond/beyond-cli/compare/v1.2.0...v1.2.1) (2018-08-10)
 

@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 
+let CLIConfig                  = require('../lib/config');
 let program                    = require('commander');
 let TestProcess                = require('../lib/test-process');
 let setupConsoleLoggingHelpers = require('../lib/setup-console-logging-helpers');
@@ -13,10 +14,7 @@ program
 
 try {
 
-  let config = {
-    watch   : program.watch
-  };
-
+  let config = new CLIConfig(program);
   let testProcess = new TestProcess(config);
   testProcess.test();
 

@@ -2,6 +2,7 @@
 'use strict';
 
 let BuildProcess               = require('../lib/build-process');
+let CLIConfig                  = require('../lib/config');
 let program                    = require('commander');
 let setupConsoleLoggingHelpers = require('../lib/setup-console-logging-helpers');
 
@@ -12,7 +13,7 @@ program
 
 try {
 
-  let buildProcess = new BuildProcess({});
+  let buildProcess = new BuildProcess(new CLIConfig());
   let cleanPromise = new Promise(buildProcess.clean);
 
   cleanPromise
