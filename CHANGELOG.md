@@ -1,3 +1,9 @@
+<a name="1.4.0"></a>
+# [1.4.0](https://github.com/getbeyond/beyond-cli/compare/v1.3.0...v1.4.0) (2018-09-12)
+
+### Features
+* Added full support of v3 core apps and updated with latest versions of app runner, web router and beyond-css
+
 <a name="1.3.0"></a>
 # [1.3.0](https://github.com/getbeyond/beyond-cli/compare/v1.2.1...v1.3.0) (2018-08-17)
 

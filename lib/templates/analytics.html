@@ -52,13 +52,14 @@
       	-webkit-overflow-scrolling: touch;
       }
     </style>
+
+    <script>
+      window.BeyondApp = window.PeachWorksApp = {{BeyondApp|json|raw}};
+    </script>
+
   </head>
   <body beyond-page ng-app="{{ BeyondApp.angular.moduleName }}">
     <div ng-view id="page_frame"></div>
-
-    <script>
-      window.BeyondApp = {{BeyondApp|json|raw}};
-    </script>
 
     <script src="https://cdn-public-peach.peachworks.com/vendor/core-js/2.4.0/core.min.js"></script>
     <script src="https://cdn-public-peach.peachworks.com/vendor/es6-promise/3.2.1/es6-promise.min.js"></script>
@@ -73,6 +74,6 @@
       <script src="{{protocol}}://{{host}}:{{port}}/app.bundle.js"></script>
     {% endif %}
 
-    <script src="https://cdn-public-peach.peachworks.com/beyond-js-web-router/1.0.3/angularjs/beyond-js-web-router.angularjs.min.js"></script>
+    <script src="https://cdn-public-peach.peachworks.com/beyond-js-web-router/1.0.5/angularjs/beyond-js-web-router.angularjs.min.js"></script>
   </body>
 </html>
