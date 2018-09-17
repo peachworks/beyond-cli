@@ -1,3 +1,9 @@
+<a name="1.4.2"></a>
+# [1.4.2](https://github.com/getbeyond/beyond-cli/compare/v1.4.1...v1.4.2) (2018-09-17)
+
+### Features
+* beyond-js-web-router v1.0.8, beyond-css v1.0.9, ng-js-beyond-app-runner v1.0.14
+
 <a name="1.4.1"></a>
 # [1.4.1](https://github.com/getbeyond/beyond-cli/compare/v1.4.0...v1.4.1) (2018-09-13)
 
