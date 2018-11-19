@@ -1,3 +1,9 @@
+<a name="1.4.4"></a>
+# [1.4.4](https://github.com/getbeyond/beyond-cli/compare/v1.4.3...v1.4.4) (2018-11-19)
+
+### Features
+* change --output-hashing to media
+
 <a name="1.4.3"></a>
 # [1.4.3](https://github.com/getbeyond/beyond-cli/compare/v1.4.2...v1.4.3) (2018-10-19)
 
