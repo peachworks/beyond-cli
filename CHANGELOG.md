@@ -1,8 +1,14 @@
+<a name="1.4.5-beta.0"></a>
+# [1.4.5-beta.0](https://github.com/getbeyond/beyond-cli/compare/v1.4.4...v1.4.5-beta.0) (2018-11-27)
+
+### Features
+* Added Core Launch app support
+
 <a name="1.4.4"></a>
 # [1.4.4](https://github.com/getbeyond/beyond-cli/compare/v1.4.3...v1.4.4) (2018-11-19)
 
 ### Features
-* change --output-hashing to media
+* Change --output-hashing to media
 
 <a name="1.4.3"></a>
 # [1.4.3](https://github.com/getbeyond/beyond-cli/compare/v1.4.2...v1.4.3) (2018-10-19)
