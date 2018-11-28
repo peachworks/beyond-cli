@@ -1,4 +1,4 @@
-<a name="1.4.5-"></a>
+<a name="1.4.5"></a>
 # [1.4.5](https://github.com/getbeyond/beyond-cli/compare/v1.4.5-beta.0...v1.4.5) (2018-11-28)
 
 ### Features
