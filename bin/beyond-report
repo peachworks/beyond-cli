@@ -17,6 +17,7 @@ program
   .option('-t, --token [value]', 'Impersonation token. This takes priority over -k|--key.')
   .option('-e, --env [value]', 'The API environment to use. Defaults to production. Options: dev, staging, prod.')
   .option('-p, --params <value>', 'Custom path to the JSON file with parameters, otherwise looks for the file next to the report')
+  .option('--debug', 'Attach node debugger')
   .option('--export <filename>', 'Export result to CSV file')
   .option('--download', 'Get all reports from the platform')
   .parse(process.argv);

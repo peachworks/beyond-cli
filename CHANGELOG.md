@@ -1,3 +1,9 @@
+<a name="1.4.5"></a>
+# [1.4.5](https://github.com/getbeyond/beyond-cli/compare/v1.4.5-beta.0...v1.4.5) (2018-11-28)
+
+### Features
+* Added support for node debugger in reports
+
 <a name="1.4.5-beta.0"></a>
 # [1.4.5-beta.0](https://github.com/getbeyond/beyond-cli/compare/v1.4.4...v1.4.5-beta.0) (2018-11-27)
 
