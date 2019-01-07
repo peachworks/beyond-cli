@@ -1,3 +1,9 @@
+<a name="1.4.6"></a>
+# [1.4.6](https://github.com/getbeyond/beyond-cli/compare/v1.4.5...v1.4.6) (2019-01-07)
+
+ ### Features
+* New command `proxy` which you can develop apps using the standard tool with, as shown [here](https://github.com/getbeyond/beyond-cli/pull/5#issuecomment-438664560)
+
 <a name="1.4.5"></a>
 # [1.4.5](https://github.com/getbeyond/beyond-cli/compare/v1.4.5-beta.0...v1.4.5) (2018-11-28)
 
