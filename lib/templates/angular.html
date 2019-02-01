@@ -85,9 +85,7 @@
 
     </script>
 
-    <!-- providing lodash here for the beyondJs which is part of the web router - get rid o that as soon as beyondJs is purged of lodash -->
-    <script src="https://cdn-public-peach.peachworks.com/vendor/lodash/4.17.5/lodash.min.js"></script>
-    <script src="https://cdn-public-peach.peachworks.com/beyond-js-web-router/1.0.18/angular/beyond-js-web-router.angular.min.js"></script>
+    <script src="https://cdn-public-peach.peachworks.com/beyond-js-web-router/1.1.5/angular/beyond-js-web-router.angular.min.js"></script>
 
   </head>
   <body>
@@ -95,9 +93,20 @@
     <div id="page_frame">
       <!-- render root selector for app, like <app-root></app-root> -->
       {% autoescape true %}
-      <{{BeyondApp.angular.rootSelector}}>Loading...</{{BeyondApp.angular.rootSelector}}>
+      <{{BeyondApp.angular.rootSelector}} id="app_elem">Loading...</{{BeyondApp.angular.rootSelector}}>
       {% endautoescape %}
     </div>
+
+    <script type="text/javascript">
+      var appObserver = new MutationObserver(() => {
+        window.top.postMessage(
+          {type: 'app_loaded'},
+          window.location.origin
+        );
+        appObserver.disconnect();
+      });
+      appObserver.observe(document.getElementById('app_elem'), {attributes:true});
+    </script>
 
     {% if serveDist %}
     <script src="/runtime.js"></script>

@@ -1,3 +1,11 @@
+<a name="1.4.7"></a>
+# [1.4.7](https://github.com/getbeyond/beyond-cli/compare/v1.4.6...v1.4.7) (2019-02-01)
+
+### Features
+* Full Core Launch app support - updated app runner
+* Session autorefresh - updated web router
+* Ng5 apps builds will from now on produce additional vendor and common chunks (if needed)
+
 <a name="1.4.6"></a>
 # [1.4.6](https://github.com/getbeyond/beyond-cli/compare/v1.4.5...v1.4.6) (2019-01-07)
 

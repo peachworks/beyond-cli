@@ -24,8 +24,8 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/img/icons/apple-touch-icon-72-precomposed.png" />
     <link rel="apple-touch-icon-precomposed" href="/assets/img/icons/apple-touch-icon-57-precomposed.png" />
 
-    <link rel="stylesheet" href="https://cdn-public-peach.peachworks.com/beyond-css/1.0.19/beyond.min.css" />
-    <link rel="stylesheet" href="https://cdn-public-peach.peachworks.com/beyond-app-runner/1.0.26/app.css" />
+    <link rel="stylesheet" href="https://cdn-public-peach.peachworks.com/beyond-css/1.1.0/beyond.min.css" />
+    <link rel="stylesheet" href="https://cdn-public-peach.peachworks.com/beyond-app-runner/1.1.8a/app.css" />
 
     {% if watchSocket %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.js"></script>
@@ -41,7 +41,33 @@
     </style>
 
     <script>
+
       window.BeyondFramework = window.PeachWorksFramework = {{BeyondApp|json|raw}};
+
+      var cookieNames = ['peach_dev_sid', 'peach_sid', 'peach_sid_ref', 'peach_sid_ref_time', 'peach_sid_expiry', 'peach_app_tokens', 'peach_app_token_{{ appKey }}'];
+      var isDevelopment = !!{{BeyondApp.session.development}};
+
+      document.cookie="peach_sid={{ tokenAccess }};path=/";
+      document.cookie="peach_sid_ref={{ tokenRefresh }};path=/";
+      document.cookie="peach_sid_ref_time={{ tokenRefreshTime }};path=/";
+      document.cookie="peach_sid_expiry={{ tokenExpiry }};path=/";
+      document.cookie="peach_app_tokens={{ tokenApps }};path=/";
+
+      if (!isDevelopment) {
+
+        var appTokens = JSON.parse(decodeURIComponent('{{ tokenApps }}') || {});
+        var appToken = appTokens && appTokens['{{ appKey }}'] ?
+        encodeURI(JSON.stringify(appTokens['{{ appKey }}'])) :
+        null;
+
+        if (appToken) {
+          document.cookie="peach_app_token_{{ appKey }}=" + appToken + ";path=/";
+        }
+
+      } else {
+        document.cookie="peach_dev_sid={{ tokenAccess }};path=/";
+      }
+
     </script>
 
   </head>
@@ -73,32 +99,11 @@
   <script src="https://cdn-public-peach.peachworks.com/vendor/lodash/3.10.1/lodash.min.js"></script>
   <script src="https://cdn-public-peach.peachworks.com/weak-map/1.0.0/weak-map.js"></script>
   <script src="https://cdn-public-peach.peachworks.com/mutation-observer/1.0.0/mutation-observer.js"></script>
-  <script src="https://cdn-public-peach.peachworks.com/beyond-js-web-router/1.0.18/server/beyond-js-web-router.server.min.js"></script>
-  <script src="https://cdn-public-peach.peachworks.com/beyond-app-runner/1.0.26/app.js"></script>
+  <script src="https://cdn-public-peach.peachworks.com/beyond-js-web-router/1.1.5/server/beyond-js-web-router.server.min.js"></script>
+  <script src="https://cdn-public-peach.peachworks.com/beyond-app-runner/1.1.8a/app.js"></script>
 
   <script>
     (function() {
-
-      var cookieNames = ['peach_dev_sid', 'peach_sid', 'peach_sid_ref', 'peach_sid_expiry', 'peach_app_tokens', 'peach_app_token_{{ appKey }}'];
-      var appTokens = angular.fromJson(decodeURIComponent('{{ tokenApps }}') || {});
-      var appToken = appTokens && appTokens['{{ appKey }}'] ?
-        encodeURI(angular.toJson(appTokens['{{ appKey }}'])) :
-        null;
-
-      document.cookie.split(";").forEach(function(c) {
-        if(c && cookieNames.indexOf(c.split('=')[0].trim()) > -1) {
-          document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
-        }
-      });
-      {% if BeyondApp.session.development %} document.cookie="peach_dev_sid={{ tokenAccess }};path=/"; {% endif %}
-      {% if !BeyondApp.session.development %} document.cookie="peach_sid={{ tokenAccess }};path=/"; {% endif %}
-      document.cookie="peach_sid_ref={{ tokenRefresh }};path=/";
-      document.cookie="peach_sid_expiry={{ tokenExpiry }};path=/";
-      document.cookie="peach_app_tokens={{ tokenApps }};path=/";
-
-      if(appToken) {
-        document.cookie="peach_app_token_{{ appKey }}=" + appToken + ";path=/";
-      }
 
       if(window.location.pathname === '/') {
         {% if BeyondApp.session.development %}
