@@ -1,3 +1,9 @@
+<a name="1.4.8"></a>
+# [1.4.8](https://github.com/getbeyond/beyond-cli/compare/v1.4.7...v1.4.8) (2019-02-12)
+
+### Features
+* Fixed the tokens issue with the `proxy` command
+
 <a name="1.4.7"></a>
 # [1.4.7](https://github.com/getbeyond/beyond-cli/compare/v1.4.6...v1.4.7) (2019-02-01)
 
