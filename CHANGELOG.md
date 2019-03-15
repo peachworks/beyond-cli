@@ -1,3 +1,9 @@
+<a name="1.4.10"></a>
+# [1.4.10](https://github.com/getbeyond/beyond-cli/compare/v1.4.9...v1.4.10) (2019-03-15)
+
+### Features
+* Updated libraries
+
 <a name="1.4.9"></a>
 # [1.4.9](https://github.com/getbeyond/beyond-cli/compare/v1.4.8...v1.4.9) (2019-03-11)
 

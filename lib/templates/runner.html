@@ -25,7 +25,7 @@
     <link rel="apple-touch-icon-precomposed" href="/assets/img/icons/apple-touch-icon-57-precomposed.png" />
 
     <link rel="stylesheet" href="https://cdn-public-peach.peachworks.com/beyond-css/1.1.0/beyond.min.css" />
-    <link rel="stylesheet" href="https://cdn-public-peach.peachworks.com/beyond-app-runner/1.1.15/app.css" />
+    <link rel="stylesheet" href="https://cdn-public-peach.peachworks.com/beyond-app-runner/1.1.16/app.css" />
 
     {% if watchSocket %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.js"></script>
@@ -43,6 +43,13 @@
     <script>
 
       window.BeyondFramework = window.PeachWorksFramework = {{BeyondApp|json|raw}};
+
+      // fake analytics object for cli - to prevent app runner errors
+      window.analytics = {
+        identify: function() { console.log('analytics.identify called with args: ', arguments); },
+        group: function() { console.log('analytics.group called with args: ', arguments); },
+        page: function() { console.log('analytics.page called with args: ', arguments); }
+      };
 
       var cookieNames = ['peach_dev_sid', 'peach_sid', 'peach_sid_ref', 'peach_sid_ref_time', 'peach_sid_expiry', 'peach_app_tokens', 'peach_app_token_{{ appKey }}'];
       var isDevelopment = !!{{BeyondApp.session.development}};
@@ -99,8 +106,8 @@
   <script src="https://cdn-public-peach.peachworks.com/vendor/lodash/3.10.1/lodash.min.js"></script>
   <script src="https://cdn-public-peach.peachworks.com/weak-map/1.0.0/weak-map.js"></script>
   <script src="https://cdn-public-peach.peachworks.com/mutation-observer/1.0.0/mutation-observer.js"></script>
-  <script src="https://cdn-public-peach.peachworks.com/beyond-js-web-router/1.1.6/server/beyond-js-web-router.server.min.js"></script>
-  <script src="https://cdn-public-peach.peachworks.com/beyond-app-runner/1.1.15/app.js"></script>
+  <script src="https://cdn-public-peach.peachworks.com/beyond-js-web-router/1.1.7/server/beyond-js-web-router.server.min.js"></script>
+  <script src="https://cdn-public-peach.peachworks.com/beyond-app-runner/1.1.16/app.js"></script>
 
   <script>
     (function() {
