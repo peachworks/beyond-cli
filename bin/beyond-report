@@ -12,7 +12,7 @@ let Downloader    = require('../lib/report/downloader');
 
 program
   .option('-c, --customer', 'Run against a customer account. Defaults to developer.')
-  .option('-a, --account [value]', 'Use the given account ID as the default account to load.')
+  .option('-a, --account [value]', 'Use the given account ID as the default account to load. (Typically used together with the -c and -e options)')
   .option('-k, --key [value]', 'Path to a secure file where credentials are stored in the format username:password.')
   .option('-t, --token [value]', 'Impersonation token. This takes priority over -k|--key.')
   .option('-e, --env [value]', 'The API environment to use. Defaults to production. Options: dev, staging, prod.')
@@ -32,7 +32,7 @@ try {
       if (loggedIn) {
 
         let report;
-        
+
         if (program.download) {
           report = new Downloader(config);
         } else {
@@ -57,5 +57,5 @@ process.on('unhandledRejection', handleError);
 function handleError(error) {
 
   console.error(error.stack || error);
-  
+
 }
