@@ -7,6 +7,7 @@ let adminLogin                 = require('../lib/admin-login');
 let CLIConfig                  = require('../lib/config');
 const constants                = require('../lib/const');
 const impersonate              = require('../lib/impersonate');
+let login                      = require('../lib/login');
 let program                    = require('commander');
 let setupConsoleLoggingHelpers = require('../lib/setup-console-logging-helpers');
 
@@ -31,10 +32,9 @@ try {
   }
   let config = new CLIConfig(program);
   config.accountType = constants.ACCT_TYPE_CUSTOMER;
-
-  adminLogin(config)
+  login(config)
+    .then(() => { return adminLogin(config);})
     .then((loggedIn) => {
-
       if (loggedIn) {
         try {
           const imp = impersonate(config);
