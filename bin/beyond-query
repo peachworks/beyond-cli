@@ -20,7 +20,7 @@ program
   .option('-e, --env <value>', 'The API environment to use. Defaults to production. Options: dev, staging, prod')
   .option('-u, --url <url>', 'Sets full relative uri, e.g. /ping')
   .option('-m, --method <method>', 'The request method, defaults to GET. Options: post, put, delete', /^post|put|delete$/i, 'get')
-  .option('-j, --json <filename>', 'JSON ')
+  .option('-j, --json <filename>', 'JSON file with query params')
   .option('--export <filename>', 'Exports result to CSV file')
   .option('--find <find>', 'Examples: id=[1,2] | \'id >= 10\' | field1=\'string 1\',field2=\'string 2\'')
   // .option('--findIncludes <find>', '')
