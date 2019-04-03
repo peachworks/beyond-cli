@@ -1,0 +1,65 @@
+#!/usr/bin/env node
+'use strict';
+
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
+let _                          = require('lodash');
+let CLIConfig                  = require('../lib/config');
+let login                      = require('../lib/login');
+let program                    = require('commander');
+let Query                      = require('../lib/query/query');
+let setupConsoleLoggingHelpers = require('../lib/setup-console-logging-helpers');
+
+setupConsoleLoggingHelpers();
+
+program
+  .option('-c, --customer', 'Run against a customer account. Defaults to developer.')
+  .option('-a, --account <value>', 'Use the given account ID as the default account to load. (Typically used together with the -c and -e options)')
+  .option('-k, --key <value>', 'Path to a secure file where credentials are stored in the format username:password.')
+  .option('-t, --token <value>', 'Impersonation token. This takes priority over -k|--key.')
+  .option('-e, --env <value>', 'The API environment to use. Defaults to production. Options: dev, staging, prod')
+  .option('-u, --url <url>', 'Sets full relative uri, e.g. /ping')
+  .option('-m, --method <method>', 'The request method, defaults to GET. Options: post, put, delete', /^post|put|delete$/i, 'get')
+  .option('-j, --json <filename>', 'JSON ')
+  .option('--export <filename>', 'Exports result to CSV file')
+  .option('--find <find>', '')
+  .option('--findIncludes <find>', '')
+  .option('--includes <includes>', '')
+  .option('--fields <includes>', '')
+  .option('--sort <sort>', 'See: https://github.com/peachworks/Peach-API/wiki/Queries,-Sorting,-Pagination#sort')
+  .option('--limit <sort>', 'Limit, must be a number', /^\d+$/, 100)
+  .option('--page <sort>', 'Pagination, must be a number', /^\d+$/, 0)
+  .parse(process.argv);
+
+try {
+
+  let config = new CLIConfig(program);
+
+  login(config)
+    .then((loggedIn) => {
+
+      if (loggedIn) {
+        try {
+          let query = new Query(config);
+          query.run();
+        } catch (ex) {
+          return Promise.reject(ex);
+        }
+      }
+
+    });
+
+} catch (ex) {
+
+  handleError(error);
+  return false;
+
+}
+
+process.on('unhandledRejection', handleError);
+
+function handleError(error) {
+
+  console.error(error.stack || error);
+
+}
