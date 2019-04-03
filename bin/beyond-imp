@@ -8,14 +8,16 @@ let CLIConfig                  = require('../lib/config');
 const constants                = require('../lib/const');
 const impersonate              = require('../lib/impersonate');
 let login                      = require('../lib/login');
+const open                     = require('open');
 let program                    = require('commander');
 let setupConsoleLoggingHelpers = require('../lib/setup-console-logging-helpers');
 
 setupConsoleLoggingHelpers();
 
 program
-  .option('-u, --user [value]', 'Define a user (email) to imp')
-  .option('-a, --account [value]', 'Define an account (account id) who\'s owner be imped')
+  .option('-o, --open', 'Open the browser with the impersonated session')
+  .option('-u, --user [value]', 'Define a user (email) to imppersonate')
+  .option('-a, --account [value]', 'Define an account (account id) who\'s owner will be imppersonated')
   .option('-e, --env [value]', 'The API environment to use. Defaults to production. Options: dev, staging, prod.')
   .option('-k, --key [value]', 'Path to a secure file where credentials are stored in the format username:password.')
   .parse(process.argv);
@@ -46,6 +48,9 @@ try {
             console.log('Access Token: ' + tokens.access_token);
             console.log('Refresh Token: ' + tokens.refresh_token);
             console.log('Impersonation URL: ' + config.apiLoginUrl + '?token=' + tokens.refresh_token);
+            if(program.open){
+              open(config.apiLoginUrl + '?token=' + tokens.refresh_token);
+            }
           });
         } catch (ex) {
           return Promise.reject(ex);
