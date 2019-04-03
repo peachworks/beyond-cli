@@ -15,7 +15,7 @@ let versionCheckPromise = new Promise(versionCheck);
 
 versionCheckPromise
   .then((latestRelease) => {
-    
+
     if(semver.gt(latestRelease.tag_name, pkge.version)) {
       console.verbose('\n\n--------------------------------------------------------------------');
       console.verbose('There is a new version of beyond-cli Available:', latestRelease.tag_name);
@@ -28,6 +28,7 @@ versionCheckPromise
       .command('build', 'Rebuild the project for distribution.')
       .command('clean', 'Remove all distribution files.')
       .command('dev', 'Startup a development session.')
+      .command('imp', 'Summon an imp')
       .command('serve', 'Startup a session using the distributable files.')
       .command('test', 'Run unit tests.')
       .command('report', 'Run report in paql or js')
@@ -38,5 +39,5 @@ versionCheckPromise
   .catch((error) => {
 
     console.error(error);
-    
+
   });
