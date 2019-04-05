@@ -1,0 +1,68 @@
+#!/usr/bin/env node
+'use strict';
+
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
+let adminLogin                 = require('../lib/admin-login');
+let CLIConfig                  = require('../lib/config');
+const constants                = require('../lib/const');
+const impersonate              = require('../lib/impersonate');
+let login                      = require('../lib/login');
+const open                     = require('open');
+let program                    = require('commander');
+let setupConsoleLoggingHelpers = require('../lib/setup-console-logging-helpers');
+
+setupConsoleLoggingHelpers();
+
+program
+  .option('-o, --open', 'Open the browser with the impersonated session')
+  .option('-u, --user [value]', 'Define a user (email) to imppersonate')
+  .option('-a, --account [value]', 'Define an account (account id) who\'s owner will be imppersonated')
+  .option('-e, --env [value]', 'The API environment to use. Defaults to production. Options: dev, staging, prod.')
+  .option('-k, --key [value]', 'Path to a secure file where credentials are stored in the format username:password.')
+  .parse(process.argv);
+
+try {
+
+  if(!program.account && !program.user){
+    console.error('You need to specify a user or account to use (-a/--account or -u/--user)');
+    return false;
+  }
+  if(!!program.account && !!program.user){
+    console.error('You cannot specify both a user and an account.');
+    return false;
+  }
+  let config = new CLIConfig(program);
+  config.accountType = constants.ACCT_TYPE_CUSTOMER;
+  login(config)
+    .then(() => { return adminLogin(config);})
+    .then((loggedIn) => {
+      if (loggedIn) {
+        try {
+          const imp = impersonate(config);
+          (
+            program.account ?
+              imp.getTokensForAccountOwner(program.account) :
+              imp.getTokensForUser(program.user)
+          ).then(tokens => {
+            console.log('Access Token: ' + tokens.access_token);
+            console.log('Refresh Token: ' + tokens.refresh_token);
+            console.log('Impersonation URL: ' + config.apiLoginUrl + '?token=' + tokens.refresh_token);
+            if(program.open){
+              open(config.apiLoginUrl + '?token=' + tokens.refresh_token);
+            }
+          });
+        } catch (ex) {
+          return Promise.reject(ex);
+        }
+      }
+
+    });
+
+} catch (ex) {
+
+  console.error(ex);
+  if (ex.stack) console.error(ex.stack);
+  return false;
+
+}

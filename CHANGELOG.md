@@ -1,3 +1,11 @@
+<a name="1.5.0"></a>
+# [1.5.0](https://github.com/getbeyond/beyond-cli/compare/v1.4.10...v1.5.0) (2019-04-05)
+
+### Features
+* beyond query
+* beyond imp and --imp
+
+
 <a name="1.4.10"></a>
 # [1.4.10](https://github.com/getbeyond/beyond-cli/compare/v1.4.9...v1.4.10) (2019-03-15)
 
