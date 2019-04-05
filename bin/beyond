@@ -28,7 +28,7 @@ versionCheckPromise
       .command('build', 'Rebuild the project for distribution.')
       .command('clean', 'Remove all distribution files.')
       .command('dev', 'Startup a development session.')
-      .command('imp', 'Summon an imp')
+      .command('imp', 'Impersonate a user')
       .command('serve', 'Startup a session using the distributable files.')
       .command('test', 'Run unit tests.')
       .command('report', 'Run report in paql or js')
