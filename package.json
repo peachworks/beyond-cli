@@ -1,6 +1,6 @@
 {
   "name": "@getbeyond/beyond-cli",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "description": "Command Line tool for Beyond Application Development",
   "main": "bin/beyond",
   "bin": {

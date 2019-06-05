@@ -1,3 +1,9 @@
+<a name="1.5.3"></a>
+# [1.5.3](https://github.com/getbeyond/beyond-cli/compare/v1.5.2...v1.5.3) (2019-06-05)
+
+### Bug Fixes
+* Setting all required cookie names in runner template
+
 <a name="1.5.2"></a>
 # [1.5.2](https://github.com/getbeyond/beyond-cli/compare/v1.5.1...v1.5.2) (2019-06-05)
 
