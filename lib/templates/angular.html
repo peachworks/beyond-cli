@@ -81,11 +81,29 @@
 
         };
 
+        var replaceState = history.replaceState;
+
+        history.replaceState = function(state) {
+
+          var beyondOnHashChangeEvent = new CustomEvent('beyond_onhashchange',
+            {
+              detail: {
+                newHash: arguments[2],
+                oldHash: window.location.hash
+              }
+            }
+          );
+          window.dispatchEvent(beyondOnHashChangeEvent);
+
+          return replaceState.apply(history, arguments);
+
+        };
+
       })(window.history);
 
     </script>
 
-    <script src="https://cdn-public-peach.peachworks.com/beyond-js-web-router/1.1.9/angular/beyond-js-web-router.angular.min.js"></script>
+    <script src="https://cdn-public-peach.peachworks.com/beyond-js-web-router/1.1.11/angular/beyond-js-web-router.angular.min.js"></script>
 
   </head>
   <body>

@@ -1,3 +1,10 @@
+<a name="1.5.2"></a>
+# [1.5.2](https://github.com/getbeyond/beyond-cli/compare/v1.5.1...v1.5.2) (2019-06-05)
+
+### Features
+* Updated core libraries
+* Listening for history.replaceState calls form ng5+ apps and propagating it to parent frame using custom event
+
 <a name="1.5.1"></a>
 # [1.5.1](https://github.com/getbeyond/beyond-cli/compare/v1.5.0...v1.5.1) (2019-04-17)
 
