@@ -1,3 +1,9 @@
+<a name="1.5.4"></a>
+# [1.5.4](https://github.com/getbeyond/beyond-cli/compare/v1.5.3...v1.5.4) (2019-07-18)
+
+### Features
+* beyond-js-web-router v1.1.13 for angular 2+
+
 <a name="1.5.3"></a>
 # [1.5.3](https://github.com/getbeyond/beyond-cli/compare/v1.5.2...v1.5.3) (2019-06-05)
 
