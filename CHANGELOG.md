@@ -1,3 +1,9 @@
+<a name="1.5.5"></a>
+# [1.5.5](https://github.com/getbeyond/beyond-cli/compare/v1.5.4...v1.5.5) (2019-07-23)
+
+### Breaking Changes
+* Updated impersonation - removed support for `-t [refresh_token]` option
+
 <a name="1.5.4"></a>
 # [1.5.4](https://github.com/getbeyond/beyond-cli/compare/v1.5.3...v1.5.4) (2019-07-18)
 
