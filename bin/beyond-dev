@@ -16,7 +16,6 @@ program
   .option('-a, --account [value]', 'Use the given account ID as the default account to load. (Typically used together with the -c and -e options)')
   .option('-i, --imp [value]', 'Use your credentials to impersonate a user')
   .option('-k, --key [value]', 'Path to a secure file where credentials are stored in the format username:password.')
-  .option('-t, --token [value]', 'Impersonation token. This takes priority over -k|--key.')
   .option('-p, --port [value]', 'Use the given port for the web server.')
   .option('-d, --devport [value]', 'Use the given port for the webpack dev server. In not given we will find some automatically.')
   .option('-o, --host [value]', 'Use the given host for the web server.')

@@ -15,7 +15,6 @@ program
   .option('-a, --account [value]', 'Use the given account ID as the default account to load. (Typically used together with the -c and -e options)')
   .option('-i, --imp [value]', 'Use your credentials to impersonate a user')
   .option('-k, --key [value]', 'Path to a secure file where credentials are stored in the format username:password.')
-  .option('-t, --token [value]', 'Impersonation token. This takes priority over -k|--key.')
   .option('-e, --env [value]', 'The API environment to use. Defaults to production. Options: dev, staging, prod.')
   .option('-p, --params <value>', 'Custom path to the JSON file with parameters, otherwise looks for the file next to the report')
   .option('--debug', 'Attach node debugger')

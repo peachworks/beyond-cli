@@ -17,7 +17,6 @@ program
   .option('-a, --account <value>', 'Use the given account ID as the default account to load. (Typically used together with the -c and -e options)')
   .option('-i, --imp [value]', 'Use your credentials to impersonate a user')
   .option('-k, --key <value>', 'Path to a secure file where credentials are stored in the format username:password.')
-  .option('-t, --token <value>', 'Impersonation token. This takes priority over -k|--key.')
   .option('-e, --env <value>', 'The API environment to use. Defaults to production. Options: dev, staging, prod')
   .option('-u, --url <url>', 'Sets full relative uri, e.g. /ping')
   .option('-m, --method <method>', 'The request method, defaults to GET. Options: post, put, delete', /^post|put|delete$/i, 'get')
