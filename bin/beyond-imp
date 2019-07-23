@@ -46,10 +46,9 @@ try {
               imp.getTokensForUser(program.user)
           ).then(tokens => {
             console.log('Access Token: ' + tokens.access_token);
-            console.log('Refresh Token: ' + tokens.refresh_token);
-            console.log('Impersonation URL: ' + config.apiLoginUrl + '?token=' + tokens.refresh_token);
+            console.log('Impersonation URL: ' + config.apiLoginUrl + '/impersonate/' + tokens.impersonate_secret);
             if(program.open){
-              open(config.apiLoginUrl + '?token=' + tokens.refresh_token);
+              open(config.apiLoginUrl + '/impersonate/' + tokens.impersonate_secret);
             }
           });
         } catch (ex) {
