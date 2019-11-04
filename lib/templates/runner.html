@@ -48,7 +48,8 @@
       window.analytics = {
         identify: function() { console.log('analytics.identify called with args: ', arguments); },
         group: function() { console.log('analytics.group called with args: ', arguments); },
-        page: function() { console.log('analytics.page called with args: ', arguments); }
+        page: function() { console.log('analytics.page called with args: ', arguments); },
+        track: function() { console.log('analytics.track called with args: ', arguments); }
       };
 
       var cookieNames = ['peach_dev_sid', 'peach_sid', 'peach_sid_ref', 'peach_sid_ref_time', 'peach_sid_expiry', 'peach_app_tokens', 'peach_app_token_{{ appKey }}'];

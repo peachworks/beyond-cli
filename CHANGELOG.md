@@ -1,3 +1,9 @@
+<a name="1.5.7"></a>
+# [1.5.7](https://github.com/getbeyond/beyond-cli/compare/v1.5.6...v1.5.7) (2019-11-04)
+
+### Features
+* Add 'track' method to fake Analytics object.
+
 <a name="1.5.6"></a>
 # [1.5.6](https://github.com/getbeyond/beyond-cli/compare/v1.5.5...v1.5.6) (2019-10-31)
 
