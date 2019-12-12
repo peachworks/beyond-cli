@@ -1,3 +1,9 @@
+<a name="1.5.8"></a>
+# [1.5.8](https://github.com/getbeyond/beyond-cli/compare/v1.5.7...v1.5.8) (2019-12-12)
+
+### Features
+* app-runner v1.1.28, web-router v1.1.17
+
 <a name="1.5.7"></a>
 # [1.5.7](https://github.com/getbeyond/beyond-cli/compare/v1.5.6...v1.5.7) (2019-11-04)
 
