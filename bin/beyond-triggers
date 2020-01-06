@@ -1,0 +1,55 @@
+#!/usr/bin/env node
+'use strict';
+
+const program = require('commander');
+const setupConsoleLoggingHelpers = require('../lib/setup-console-logging-helpers');
+const TriggersProcess = require('../lib/triggers-process');
+const CLIConfig = require('../lib/config');
+
+setupConsoleLoggingHelpers();
+
+program
+  .description('The tool to manage updates to triggers from GIT repository instead of using web editor.')
+  .usage('<commandName> [commandParams]')
+
+program
+  .command('pull')
+  .description('Download triggers code from developer portal')
+  .option('-e, --env [value]', 'The API environment to use. Defaults to production. Options: dev, staging, prod')
+  .option('-k, --key [value]', 'Path to a secure file where credentials are stored in the format username:password.')
+  .action((options) => {
+    const config = new CLIConfig(options);
+    let triggersProcess = new TriggersProcess(config);
+    return triggersProcess.pull(config)
+  })
+
+program
+  .command('push')
+  .description('Upload triggers code to developer portal. This WILL overwrite any preexisting changes.')
+  .option('-e, --env [value]', 'The API environment to use. Defaults to production. Options: dev, staging, prod')
+  .option('-k, --key [value]', 'Path to a secure file where credentials are stored in the format username:password.')
+  .action((options) => {
+    const config = new CLIConfig(options);
+    let triggersProcess = new TriggersProcess(config);
+    return triggersProcess.push(config)
+  })
+
+// just a default command
+program
+  .command('*', null, {noHelp: true})
+  .description('Display this help')
+  .action(() => {
+    program.help()
+  })
+
+try {
+  program.parse(process.argv)
+  // * won't handle no parameters case
+  if (!process.argv.slice(2).length) {
+    program.help()
+  }
+} catch (ex) {
+  console.error(ex);
+  if (ex.stack) console.error(ex.stack);
+  return false;
+}

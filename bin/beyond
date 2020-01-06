@@ -33,6 +33,7 @@ versionCheckPromise
       .command('test', 'Run unit tests.')
       .command('report', 'Run report in paql or js')
       .command('proxy', 'Catch all requests')
+      .command('triggers', 'Manage triggers source code')
       .command('query [query]', 'Query the API')
       .parse(process.argv);
 
