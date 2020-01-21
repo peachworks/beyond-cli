@@ -1,3 +1,10 @@
+<a name="1.5.9"></a>
+# [1.5.9](https://github.com/getbeyond/beyond-cli/compare/v1.5.8...v1.5.9) (2020-01-21)
+
+### Features
+* Added `--segment-key [value]` option for `beyond serve` and `beyond dev` for tracking Segment events
+* app-runner v1.2.1, web-router v1.2.1
+
 <a name="1.5.8"></a>
 # [1.5.8](https://github.com/getbeyond/beyond-cli/compare/v1.5.7...v1.5.8) (2019-12-12)
 

@@ -25,7 +25,7 @@
     <link rel="apple-touch-icon-precomposed" href="/assets/img/icons/apple-touch-icon-57-precomposed.png" />
 
     <link rel="stylesheet" href="https://cdn-public-peach.peachworks.com/beyond-css/1.1.0/beyond.min.css" />
-    <link rel="stylesheet" href="https://cdn-public-peach.peachworks.com/beyond-app-runner/1.1.28/app.css" />
+    <link rel="stylesheet" href="https://cdn-public-peach.peachworks.com/beyond-app-runner/1.2.1/app.css" />
 
     {% if watchSocket %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.js"></script>
@@ -44,13 +44,20 @@
 
       window.BeyondFramework = window.PeachWorksFramework = {{BeyondApp|json|raw}};
 
-      // fake analytics object for cli - to prevent app runner errors
-      window.analytics = {
-        identify: function() { console.log('analytics.identify called with args: ', arguments); },
-        group: function() { console.log('analytics.group called with args: ', arguments); },
-        page: function() { console.log('analytics.page called with args: ', arguments); },
-        track: function() { console.log('analytics.track called with args: ', arguments); }
-      };
+      // TODO: Remove this if/else below once all the apps are updated to use our own beyondJS.analytics service
+      if (!window.BeyondFramework.session.segmentApiKey) {
+        // fake analytics object for cli - to prevent app runner errors
+        window.analytics = {
+            identify: function() { console.log('analytics.identify called with args: ', arguments); },
+            group: function() { console.log('analytics.group called with args: ', arguments); },
+            page: function() { console.log('analytics.page called with args: ', arguments); },
+            track: function() { console.log('analytics.track called with args: ', arguments); }
+        };
+      } else {
+        !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t,e){var n=document.createElement("script");n.type="text/javascript";n.async=!0;n.src="https://cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(n,a);analytics._loadOptions=e};analytics.SNIPPET_VERSION="4.1.0";
+          analytics.load('{{ BeyondApp.session.segmentApiKey }}');
+        }}();
+      }
 
       var cookieNames = ['peach_dev_sid', 'peach_sid', 'peach_sid_ref', 'peach_sid_ref_time', 'peach_sid_expiry', 'peach_app_tokens', 'peach_app_token_{{ appKey }}'];
       var isDevelopment = !!{{BeyondApp.session.development}};
@@ -107,8 +114,8 @@
   <script src="https://cdn-public-peach.peachworks.com/vendor/lodash/3.10.1/lodash.min.js"></script>
   <script src="https://cdn-public-peach.peachworks.com/weak-map/1.0.0/weak-map.js"></script>
   <script src="https://cdn-public-peach.peachworks.com/mutation-observer/1.0.0/mutation-observer.js"></script>
-  <script src="https://cdn-public-peach.peachworks.com/beyond-js-web-router/1.1.17/server/beyond-js-web-router.server.min.js"></script>
-  <script src="https://cdn-public-peach.peachworks.com/beyond-app-runner/1.1.28/app.js"></script>
+  <script src="https://cdn-public-peach.peachworks.com/beyond-js-web-router/1.2.1/server/beyond-js-web-router.server.min.js"></script>
+  <script src="https://cdn-public-peach.peachworks.com/beyond-app-runner/1.2.1/app.js"></script>
 
   <script>
     (function() {
