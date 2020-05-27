@@ -22,6 +22,7 @@ program
   .option('-s, --ssl', 'Runs server using https protocol.')
   .option('-m, --vhost', 'If running in a virtual machine, use this flag to automatically listen on 0.0.0.0 instead of localhost by default.')
   .option('-e, --env [value]', 'The API environment to use. Defaults to production. Options: dev, staging, prod')
+  .option('--segment-key [value]', 'The Segment key to use for tracked events. If not provided, all events will be logged to console.')
   .parse(process.argv);
 
 try {

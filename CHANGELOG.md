@@ -1,3 +1,28 @@
+<a name="1.5.9"></a>
+# [1.5.9](https://github.com/getbeyond/beyond-cli/compare/v1.5.8...v1.5.9) (2020-01-21)
+
+### Features
+* Added `--segment-key [value]` option for `beyond serve` and `beyond dev` for tracking Segment events
+* app-runner v1.2.1, web-router v1.2.1
+
+<a name="1.5.8"></a>
+# [1.5.8](https://github.com/getbeyond/beyond-cli/compare/v1.5.7...v1.5.8) (2019-12-12)
+
+### Features
+* app-runner v1.1.28, web-router v1.1.17
+
+<a name="1.5.7"></a>
+# [1.5.7](https://github.com/getbeyond/beyond-cli/compare/v1.5.6...v1.5.7) (2019-11-04)
+
+### Features
+* Add 'track' method to fake Analytics object.
+
+<a name="1.5.6"></a>
+# [1.5.6](https://github.com/getbeyond/beyond-cli/compare/v1.5.5...v1.5.6) (2019-10-31)
+
+### Features
+* app-runner v1.1.27, web-router v1.1.16
+
 <a name="1.5.5"></a>
 # [1.5.5](https://github.com/getbeyond/beyond-cli/compare/v1.5.4...v1.5.5) (2019-07-23)
 

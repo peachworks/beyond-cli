@@ -25,6 +25,7 @@ program
   .option('-v, --verbose', 'Verbose build output.')
   .option('-w, --watch [value]', 'Watch for changes and reload the browser. If any value given (in milliseconds), it will poll for changes each X ms.')
   .option('--preserve-symlinks', 'Preserve symbolic links during build.')
+  .option('--segment-key [value]', 'The Segment key to use for tracked events. If not provided, all events will be logged to console.')
   .parse(process.argv);
 
 try {
