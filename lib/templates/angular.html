@@ -24,6 +24,19 @@
     <link href="{{protocol}}://{{host}}:{{port}}/styles.css" rel="stylesheet" />
     {% endif %}
 
+  <script type="text/javascript">
+    (function() {
+      if (navigator.userAgent.includes('BeyondOne')) { // Mobile app
+        var check = setInterval(function () {
+          if (typeof (cordova) === 'undefined' && typeof (parent.cordova) !== 'undefined') {
+            cordova = parent.cordova;
+            clearInterval(check);
+          }
+        }, 500);
+      }
+    })();
+  </script>
+
     <style>
       html, body {
         position: relative;

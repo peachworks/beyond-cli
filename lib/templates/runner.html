@@ -5,7 +5,7 @@
     <link rel="shortcut icon" href="/favicon.ico">
 
     {% if isCordova %}
-        <script src="/cordova/cordova.js" type="text/javascript"></script>
+        <script src="/cordova/{{cordovaPlatform}}/cordova.js" type="text/javascript"></script>
     {% endif %}
 
     {% if BeyondApp.session.development %}
