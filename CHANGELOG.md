@@ -1,3 +1,10 @@
+<a name="1.5.10"></a>
+# [1.5.10](https://github.com/getbeyond/beyond-cli/compare/v1.5.9...v1.5.10) (2020-06-19)
+
+### Features
+* Added Cordova support and mobile detection (correct value on `beyond.session.mobileApp`);
+* Added a favicon.
+
 <a name="1.5.9"></a>
 # [1.5.9](https://github.com/getbeyond/beyond-cli/compare/v1.5.8...v1.5.9) (2020-01-21)
 

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
   <head>
     <title>Beyond App</title>
+    <link rel="shortcut icon" href="/favicon.ico">
 
     {% if BeyondApp.session.development %}
     <base href="/preview/accounts/{{BeyondApp.accountId}}/{{BeyondApp.appPath}}">
@@ -16,19 +17,24 @@
   	<meta name="apple-mobile-web-app-capable" content="yes">
   	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-    <link rel="shortcut icon" href="/assets/img/icons/favicon.png">
-    <link rel="apple-touch-icon-precomposed" sizes="1040x1040" href="/assets/img/icons/apple-touch-icon-1040-precomposed.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="1024x1024" href="/assets/img/icons/apple-touch-icon-1024-precomposed.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/assets/img/icons/apple-touch-icon-144-precomposed.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/assets/img/icons/apple-touch-icon-114-precomposed.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/assets/img/icons/apple-touch-icon-72-precomposed.png" />
-    <link rel="apple-touch-icon-precomposed" href="/assets/img/icons/apple-touch-icon-57-precomposed.png" />
-
     {% if serveDist %}
       <link href="/app.css" rel="stylesheet" />
     {% else %}
       <link href="{{protocol}}://{{host}}:{{port}}/app.css" rel="stylesheet" />
     {% endif %}
+
+    <script type="text/javascript">
+      (function() {
+        if (navigator.userAgent.includes('BeyondOne')) { // Mobile app
+          var check = setInterval(function () {
+            if (typeof (cordova) === 'undefined' && typeof (parent.cordova) !== 'undefined') {
+              cordova = parent.cordova;
+              clearInterval(check);
+            }
+          }, 500);
+        }
+      })();
+    </script>
 
     <style>
       html, body {
