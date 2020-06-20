@@ -19,11 +19,11 @@ try {
   let config = new CLIConfig(program);
   let buildProcess = new BuildProcess(config);
   buildProcess.build();
-  
+
 } catch (ex) {
 
   console.error(ex);
   if (ex.stack) console.error(ex.stack);
   return false;
-  
+
 }
