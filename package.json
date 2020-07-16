@@ -65,7 +65,7 @@
     "karma-sinon-chai": "2.0.2",
     "karma-sourcemap-loader": "0.3.7",
     "karma-webpack": "3.0.5",
-    "lodash": "4.17.15",
+    "lodash": "4.17.19",
     "lolex": "2.7.1",
     "method-override": "2.3.10",
     "mocha": "5.2.0",
