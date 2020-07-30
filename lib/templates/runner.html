@@ -22,8 +22,8 @@
   	<meta name="apple-mobile-web-app-capable" content="yes">
   	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-    <link rel="stylesheet" href="https://cdn-public-peach.peachworks.com/beyond-css/1.1.0/beyond.min.css" />
-    <link rel="stylesheet" href="https://cdn-public-peach.peachworks.com/beyond-app-runner/1.2.1/app.css" />
+    <link rel="stylesheet" href="https://cdn-public-peach.peachworks.com/beyond-css/1.2.0/beyond.min.css" />
+    <link rel="stylesheet" href="https://cdn-public-peach.peachworks.com/beyond-app-runner/1.2.7/app.css" />
 
     {% if watchSocket %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.js"></script>
@@ -57,14 +57,14 @@
         }}();
       }
 
-      var cookieNames = ['peach_dev_sid', 'peach_sid', 'peach_sid_ref', 'peach_sid_ref_time', 'peach_sid_expiry', 'peach_app_tokens', 'peach_app_token_{{ appKey }}'];
+      var cookieNames = ['beyond_dev_sid', 'beyond_sid', 'beyond_sid_ref', 'beyond_sid_ref_time', 'beyond_sid_expiry', 'beyond_app_tokens', 'beyond_app_token_{{ appKey }}'];
       var isDevelopment = !!{{BeyondApp.session.development}};
 
-      document.cookie="peach_sid={{ tokenAccess }};path=/";
-      document.cookie="peach_sid_ref={{ tokenRefresh }};path=/";
-      document.cookie="peach_sid_ref_time={{ tokenRefreshTime }};path=/";
-      document.cookie="peach_sid_expiry={{ tokenExpiry }};path=/";
-      document.cookie="peach_app_tokens={{ tokenApps }};path=/";
+      document.cookie="beyond_sid={{ tokenAccess }};path=/";
+      document.cookie="beyond_sid_ref={{ tokenRefresh }};path=/";
+      document.cookie="beyond_sid_ref_time={{ tokenRefreshTime }};path=/";
+      document.cookie="beyond_sid_expiry={{ tokenExpiry }};path=/";
+      document.cookie="beyond_app_tokens={{ tokenApps }};path=/";
 
       if (!isDevelopment) {
 
@@ -74,11 +74,11 @@
         null;
 
         if (appToken) {
-          document.cookie="peach_app_token_{{ appKey }}=" + appToken + ";path=/";
+          document.cookie="beyond_app_token_{{ appKey }}=" + appToken + ";path=/";
         }
 
       } else {
-        document.cookie="peach_dev_sid={{ tokenAccess }};path=/";
+        document.cookie="beyond_dev_sid={{ tokenAccess }};path=/";
       }
 
     </script>
@@ -112,8 +112,8 @@
   <script src="https://cdn-public-peach.peachworks.com/vendor/lodash/3.10.1/lodash.min.js"></script>
   <script src="https://cdn-public-peach.peachworks.com/weak-map/1.0.0/weak-map.js"></script>
   <script src="https://cdn-public-peach.peachworks.com/mutation-observer/1.0.0/mutation-observer.js"></script>
-  <script src="https://cdn-public-peach.peachworks.com/beyond-js-web-router/1.2.1/server/beyond-js-web-router.server.min.js"></script>
-  <script src="https://cdn-public-peach.peachworks.com/beyond-app-runner/1.2.1/app.js"></script>
+  <script src="https://cdn-public-peach.peachworks.com/beyond-js-web-router/1.2.7/server/beyond-js-web-router.server.min.js"></script>
+  <script src="https://cdn-public-peach.peachworks.com/beyond-app-runner/1.2.7/app.js"></script>
 
   <script>
     (function() {

@@ -24,6 +24,9 @@ program
   .option('-e, --env [value]', 'The API environment to use. Defaults to production. Options: dev, staging, prod.')
   .option('-v, --verbose', 'Verbose build output.')
   .option('-w, --watch [value]', 'Watch for changes and reload the browser. If any value given (in milliseconds), it will poll for changes each X ms.')
+  .option('--checkout-api-url [value]', 'Use to set custom checkout api url, if you don\'t want the default value assigned to current environment.')
+  .option('--checkout-client-url [value]', 'Use to set custom checkout client (store) url, if you don\'t want the default value assigned to current environment.')
+  .option('--hub-url [value]', 'Use to set custom hub url, if you don\'t want the default value assigned to current environment.')
   .option('--preserve-symlinks', 'Preserve symbolic links during build.')
   .option('--segment-key [value]', 'The Segment key to use for tracked events. If not provided, all events will be logged to console.')
   .parse(process.argv);
