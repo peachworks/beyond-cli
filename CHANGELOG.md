@@ -1,3 +1,10 @@
+<a name="1.5.11"></a>
+# [1.5.11](https://github.com/getbeyond/beyond-cli/compare/v1.5.10...v1.5.11) (2020-07-30)
+
+### Features
+* Added `--checkout-api-url [value]`, `--checkout-client-url [value]` and `--hub-url [value]` option for `beyond serve` and `beyond dev` commands
+* app-runner v1.2.7, web-router v1.2.7
+
 <a name="1.5.10"></a>
 # [1.5.10](https://github.com/getbeyond/beyond-cli/compare/v1.5.9...v1.5.10) (2020-06-19)
 
