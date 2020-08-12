@@ -1,158 +1,160 @@
 <!DOCTYPE html>
-  <head>
-    <title>Beyond App</title>
+    <head>
+        <title>Beyond App</title>
 
-    <link rel="shortcut icon" href="/favicon.ico">
+        <link rel="shortcut icon" href="/favicon.ico">
 
-    {% if isCordova %}
-        <script src="/cordova/{{cordovaPlatform}}/cordova.js" type="text/javascript"></script>
-    {% endif %}
+        {% if isCordova %}
+            <script src="/cordova/{{cordovaPlatform}}/cordova.js" type="text/javascript"></script>
+        {% endif %}
 
-    {% if BeyondApp.session.development %}
-    <base href="/preview/accounts/{{BeyondApp.accountId}}/">
-    {% else %}
-    <base href="/accounts/{{BeyondApp.accountId}}/">
-    {% endif %}
+        {% if BeyondApp.session.development %}
+        <base href="/preview/accounts/{{BeyondApp.accountId}}/">
+        {% else %}
+        <base href="/accounts/{{BeyondApp.accountId}}/">
+        {% endif %}
 
-    <!-- General META -->
-  	<meta charset="utf-8">
-  	<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
-  	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-  	<meta name="apple-mobile-web-app-capable" content="yes">
-  	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <!-- General META -->
+        <meta charset="utf-8">
+        <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-    <link rel="stylesheet" href="https://cdn-public-peach.peachworks.com/beyond-css/1.2.0/beyond.min.css" />
-    <link rel="stylesheet" href="https://cdn-public-peach.peachworks.com/beyond-app-runner/1.2.7/app.css" />
+        <link rel="stylesheet" href="https://cdn-public-peach.peachworks.com/beyond-css/1.2.0/beyond.min.css" />
+        <link rel="stylesheet" href="https://cdn-public-peach.peachworks.com/beyond-app-runner/1.2.7/app.css" />
 
-    {% if watchSocket %}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.js"></script>
-    {% endif %}
+        {% if watchSocket %}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.0/socket.io.js"></script>
+        {% endif %}
 
-    <style>
-      #app-runner {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        border: none;
-      }
-    </style>
+        <style>
+        #app-runner {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            border: none;
+        }
+        </style>
+
+        <script>
+
+            window.BeyondFramework = window.PeachWorksFramework = {{BeyondApp|json|raw}};
+
+            // TODO: Remove this if/else below once all the apps are updated to use our own beyondJS.analytics service
+            if (!window.BeyondFramework.session.segmentApiKey) {
+                // fake analytics object for cli - to prevent app runner errors
+                window.analytics = {
+                    identify: function() { console.log('analytics.identify called with args: ', arguments); },
+                    group: function() { console.log('analytics.group called with args: ', arguments); },
+                    page: function() { console.log('analytics.page called with args: ', arguments); },
+                    track: function() { console.log('analytics.track called with args: ', arguments); }
+                };
+            } else {
+                !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t,e){var n=document.createElement("script");n.type="text/javascript";n.async=!0;n.src="https://cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(n,a);analytics._loadOptions=e};analytics.SNIPPET_VERSION="4.1.0";
+                analytics.load('{{ BeyondApp.session.segmentApiKey }}');
+                }}();
+            }
+
+            var cookieNames = ['beyond_dev_sid', 'beyond_sid', 'beyond_sid_ref', 'beyond_sid_ref_time', 'beyond_sid_expiry', 'beyond_app_tokens', 'beyond_app_token_{{ appKey }}'];
+            var isDevelopment = !!{{BeyondApp.session.development}};
+
+            document.cookie="beyond_sid={{ tokenAccess }};path=/";
+            document.cookie="beyond_sid_ref={{ tokenRefresh }};path=/";
+            document.cookie="beyond_sid_ref_time={{ tokenRefreshTime }};path=/";
+            document.cookie="beyond_sid_expiry={{ tokenExpiry }};path=/";
+            document.cookie="beyond_app_tokens={{ tokenApps }};path=/";
+
+            if (!isDevelopment) {
+
+                var appTokens = JSON.parse(decodeURIComponent('{{ tokenApps }}') || {});
+                var appToken = appTokens && appTokens['{{ appKey }}'] ?
+                    encodeURI(JSON.stringify(appTokens['{{ appKey }}'])) :
+                    null;
+
+                if (appToken) {
+                    document.cookie="beyond_app_token_{{ appKey }}=" + appToken + ";path=/";
+                }
+
+            } else {
+                document.cookie="beyond_dev_sid={{ tokenAccess }};path=/";
+            }
+
+        </script>
+
+    </head>
+
+    <body beyond-page ng-app="appRunner">
+        <div class="beyond-page-wrapper" layout="column">
+            <beyond-notice></beyond-notice>
+            <beyond-toolbar></beyond-toolbar>
+            <div class="beyond-page-content-row" layout="row" flex>
+                <beyond-sidenav></beyond-sidenav>
+
+                <div id="content" ng-class="{'sidenav-open': states.showSidenav}">
+                    <div class="app-loader" ng-if="isLoadingApp">
+                        <div layout="row" layout-sm="column" layout-align="space-around">
+                            <md-progress-circular md-mode="indeterminate" md-diameter="96"></md-progress-circular>
+                        </div>
+                    </div>
+                </div>
+
+                <beyond-apps-menu></beyond-apps-menu>
+                <beyond-usermenu></beyond-usermenu>
+                <beyond-marketplace></beyond-marketplace>
+            </div>
+        </div>
+    </body>
+
+    <script src="https://cdn-public-peach.peachworks.com/vendor/core-js/2.4.0/core.min.js"></script>
+    <script src="https://cdn-public-peach.peachworks.com/vendor/es6-promise/3.2.1/es6-promise.min.js"></script>
+    <script src="https://cdn-public-peach.peachworks.com/promise-finally/1.0.1/finally.js"></script>
+    <script src="https://cdn-public-peach.peachworks.com/vendor/fetch/0.11.0/fetch.min.js"></script>
+    <script src="https://cdn-public-peach.peachworks.com/vendor/lodash/3.10.1/lodash.min.js"></script>
+    <script src="https://cdn-public-peach.peachworks.com/weak-map/1.0.0/weak-map.js"></script>
+    <script src="https://cdn-public-peach.peachworks.com/mutation-observer/1.0.0/mutation-observer.js"></script>
+    <script src="https://cdn-public-peach.peachworks.com/beyond-js-web-router/1.2.7/server/beyond-js-web-router.server.min.js"></script>
+    <script src="https://cdn-public-peach.peachworks.com/beyond-app-runner/1.2.7/app.js"></script>
 
     <script>
+        (function() {
 
-      window.BeyondFramework = window.PeachWorksFramework = {{BeyondApp|json|raw}};
-
-      // TODO: Remove this if/else below once all the apps are updated to use our own beyondJS.analytics service
-      if (!window.BeyondFramework.session.segmentApiKey) {
-        // fake analytics object for cli - to prevent app runner errors
-        window.analytics = {
-            identify: function() { console.log('analytics.identify called with args: ', arguments); },
-            group: function() { console.log('analytics.group called with args: ', arguments); },
-            page: function() { console.log('analytics.page called with args: ', arguments); },
-            track: function() { console.log('analytics.track called with args: ', arguments); }
-        };
-      } else {
-        !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t,e){var n=document.createElement("script");n.type="text/javascript";n.async=!0;n.src="https://cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(n,a);analytics._loadOptions=e};analytics.SNIPPET_VERSION="4.1.0";
-          analytics.load('{{ BeyondApp.session.segmentApiKey }}');
-        }}();
-      }
-
-      var cookieNames = ['beyond_dev_sid', 'beyond_sid', 'beyond_sid_ref', 'beyond_sid_ref_time', 'beyond_sid_expiry', 'beyond_app_tokens', 'beyond_app_token_{{ appKey }}'];
-      var isDevelopment = !!{{BeyondApp.session.development}};
-
-      document.cookie="beyond_sid={{ tokenAccess }};path=/";
-      document.cookie="beyond_sid_ref={{ tokenRefresh }};path=/";
-      document.cookie="beyond_sid_ref_time={{ tokenRefreshTime }};path=/";
-      document.cookie="beyond_sid_expiry={{ tokenExpiry }};path=/";
-      document.cookie="beyond_app_tokens={{ tokenApps }};path=/";
-
-      if (!isDevelopment) {
-
-        var appTokens = JSON.parse(decodeURIComponent('{{ tokenApps }}') || {});
-        var appToken = appTokens && appTokens['{{ appKey }}'] ?
-        encodeURI(JSON.stringify(appTokens['{{ appKey }}'])) :
-        null;
-
-        if (appToken) {
-          document.cookie="beyond_app_token_{{ appKey }}=" + appToken + ";path=/";
+        if(window.location.pathname === '/') {
+            {% if BeyondApp.session.development %}
+            {% if BeyondApp.accountId %}
+                window.location.pathname = '/preview/accounts/{{BeyondApp.accountId}}/{{BeyondApp.appPath}}';
+            {% elseif accounts.length === 0 %}
+                alerts('The login you used does not have any accounts assigned to it.');
+            {% else %}
+                window.location.pathname = '/preview/accounts/{{accounts[0].id}}/{{BeyondApp.appPath}}';
+            {% endif %}
+            {% else %}
+            {% if BeyondApp.accountId %}
+                window.location.pathname = '/accounts/{{BeyondApp.accountId}}/{{BeyondApp.appPath}}';
+            {% elseif accounts.length === 0 %}
+                alerts('The login you used does not have any accounts assigned to it.');
+            {% else %}
+                window.location.pathname = '/accounts/{{accounts[0].id}}/{{BeyondApp.appPath}}';
+            {% endif %}
+            {% endif %}
         }
 
-      } else {
-        document.cookie="beyond_dev_sid={{ tokenAccess }};path=/";
-      }
+        {% if watchSocket %}
 
-    </script>
+        var socket = io.connect('{{protocol}}://{{host}}:{{port}}');
 
-  </head>
-  <body beyond-page ng-app="appRunner">
-  	<div class="beyond-page-wrapper" layout="column">
-  		<beyond-notice></beyond-notice>
-  		<beyond-toolbar></beyond-toolbar>
-  		<div class="beyond-page-content-row" layout="row" flex>
-  			<beyond-sidenav></beyond-sidenav>
+        socket.on('connect', function(data) {
+            console.log('>>Beyond CLI: Development server socket connected, watching for changes...');
+        });
 
-        <div id="content" ng-class="{'sidenav-open': states.showSidenav}">
-          <div class="app-loader" ng-if="isLoadingApp">
-            <div layout="row" layout-sm="column" layout-align="space-around">
-              <md-progress-circular md-mode="indeterminate" md-diameter="96"></md-progress-circular>
-            </div>
-          </div>
-        </div>
+        socket.on('BeyondReloadIframe', function() {
+            console.log('>>Beyond CLI: App code change detected, reloading...');
+            document.getElementById('app-runner').src = document.getElementById('app-runner').src;
+        });
 
-        <beyond-apps-menu></beyond-apps-menu>
-  			<beyond-usermenu></beyond-usermenu>
-  		</div>
-  	</div>
-  </body>
-
-  <script src="https://cdn-public-peach.peachworks.com/vendor/core-js/2.4.0/core.min.js"></script>
-  <script src="https://cdn-public-peach.peachworks.com/vendor/es6-promise/3.2.1/es6-promise.min.js"></script>
-  <script src="https://cdn-public-peach.peachworks.com/promise-finally/1.0.1/finally.js"></script>
-  <script src="https://cdn-public-peach.peachworks.com/vendor/fetch/0.11.0/fetch.min.js"></script>
-  <script src="https://cdn-public-peach.peachworks.com/vendor/lodash/3.10.1/lodash.min.js"></script>
-  <script src="https://cdn-public-peach.peachworks.com/weak-map/1.0.0/weak-map.js"></script>
-  <script src="https://cdn-public-peach.peachworks.com/mutation-observer/1.0.0/mutation-observer.js"></script>
-  <script src="https://cdn-public-peach.peachworks.com/beyond-js-web-router/1.2.7/server/beyond-js-web-router.server.min.js"></script>
-  <script src="https://cdn-public-peach.peachworks.com/beyond-app-runner/1.2.7/app.js"></script>
-
-  <script>
-    (function() {
-
-      if(window.location.pathname === '/') {
-        {% if BeyondApp.session.development %}
-          {% if BeyondApp.accountId %}
-            window.location.pathname = '/preview/accounts/{{BeyondApp.accountId}}/{{BeyondApp.appPath}}';
-          {% elseif accounts.length === 0 %}
-            alerts('The login you used does not have any accounts assigned to it.');
-          {% else %}
-            window.location.pathname = '/preview/accounts/{{accounts[0].id}}/{{BeyondApp.appPath}}';
-          {% endif %}
-        {% else %}
-          {% if BeyondApp.accountId %}
-            window.location.pathname = '/accounts/{{BeyondApp.accountId}}/{{BeyondApp.appPath}}';
-          {% elseif accounts.length === 0 %}
-            alerts('The login you used does not have any accounts assigned to it.');
-          {% else %}
-            window.location.pathname = '/accounts/{{accounts[0].id}}/{{BeyondApp.appPath}}';
-          {% endif %}
         {% endif %}
-      }
 
-      {% if watchSocket %}
-
-      var socket = io.connect('{{protocol}}://{{host}}:{{port}}');
-
-      socket.on('connect', function(data) {
-        console.log('>>Beyond CLI: Development server socket connected, watching for changes...');
-      });
-
-      socket.on('BeyondReloadIframe', function() {
-        console.log('>>Beyond CLI: App code change detected, reloading...');
-        document.getElementById('app-runner').src = document.getElementById('app-runner').src;
-      });
-
-      {% endif %}
-
-    })();
-  </script>
+        })();
+    </script>
 </html>

@@ -1,3 +1,9 @@
+<a name="1.5.12"></a>
+# [1.5.12](https://github.com/getbeyond/beyond-cli/compare/v1.5.11...v1.5.12) (2020-08-12)
+
+### Bug Fixes
+* Fixed issues with marketplace directive
+
 <a name="1.5.11"></a>
 # [1.5.11](https://github.com/getbeyond/beyond-cli/compare/v1.5.10...v1.5.11) (2020-07-30)
 
