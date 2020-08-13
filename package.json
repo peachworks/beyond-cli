@@ -1,6 +1,6 @@
 {
   "name": "@getbeyond/beyond-cli",
-  "version": "1.5.12",
+  "version": "1.5.13",
   "description": "Command Line tool for Beyond Application Development",
   "main": "bin/beyond",
   "bin": {
@@ -31,6 +31,7 @@
     "babel-preset-env": "1.7.0",
     "babel-preset-react": "6.24.1",
     "big.js": "5.2.2",
+    "bluebird": "3.7.2",
     "body-parser": "1.19.0",
     "chai": "4.2.0",
     "cli-clear": "1.0.4",

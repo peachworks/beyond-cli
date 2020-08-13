@@ -20,6 +20,9 @@ program
   .option('--debug', 'Attach node debugger')
   .option('--export <filename>', 'Export result to CSV file')
   .option('--download', 'Get all reports from the platform')
+  .option('--checkout-api-url [value]', 'Use to set custom checkout api url, if you don\'t want the default value assigned to current environment.')
+  .option('--checkout-client-url [value]', 'Use to set custom checkout client (store) url, if you don\'t want the default value assigned to current environment.')
+  .option('--hub-url [value]', 'Use to set custom hub url, if you don\'t want the default value assigned to current environment.')
   .parse(process.argv);
 
 try {

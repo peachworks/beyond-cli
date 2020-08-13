@@ -1,3 +1,9 @@
+<a name="1.5.13"></a>
+# [1.5.13](https://github.com/getbeyond/beyond-cli/compare/v1.5.12...v1.5.13) (2020-08-13)
+
+### Features
+* Updated `beyond report` command params - can pass checkout api/store urls
+
 <a name="1.5.12"></a>
 # [1.5.12](https://github.com/getbeyond/beyond-cli/compare/v1.5.11...v1.5.12) (2020-08-12)
 
