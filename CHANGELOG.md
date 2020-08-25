@@ -1,3 +1,10 @@
+<a name="1.5.14"></a>
+# [1.5.14](https://github.com/getbeyond/beyond-cli/compare/v1.5.13...v1.5.14) (2020-08-25)
+
+### Features
+* Added `--payroll-api-url [value]` option for `beyond serve`, `beyond dev` and `beyond report` commands
+* app-runner v1.2.9, web-router v1.2.8
+
 <a name="1.5.13"></a>
 # [1.5.13](https://github.com/getbeyond/beyond-cli/compare/v1.5.12...v1.5.13) (2020-08-13)
 
