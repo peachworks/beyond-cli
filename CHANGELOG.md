@@ -1,3 +1,9 @@
+<a name="1.5.15"></a>
+# [1.5.15](https://github.com/getbeyond/beyond-cli/compare/v1.5.14...v1.5.15) (2020-09-16)
+
+### Features
+* Updated Cordova libs to support Beyond One IOS app v1.2.7;
+
 <a name="1.5.14"></a>
 # [1.5.14](https://github.com/getbeyond/beyond-cli/compare/v1.5.13...v1.5.14) (2020-08-25)
 
