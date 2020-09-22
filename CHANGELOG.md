@@ -1,3 +1,9 @@
+<a name="1.5.16"></a>
+# [1.5.16](https://github.com/getbeyond/beyond-cli/compare/v1.5.15...v1.5.16) (2020-09-22)
+
+### Features
+* Updated dependencies, new param for dev/serve commands --checkout-function-url
+
 <a name="1.5.15"></a>
 # [1.5.15](https://github.com/getbeyond/beyond-cli/compare/v1.5.14...v1.5.15) (2020-09-16)
 

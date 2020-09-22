@@ -22,6 +22,7 @@ program
   .option('--download', 'Get all reports from the platform')
   .option('--checkout-api-url [value]', 'Use to set custom checkout api url, if you don\'t want the default value assigned to current environment.')
   .option('--checkout-client-url [value]', 'Use to set custom checkout client (store) url, if you don\'t want the default value assigned to current environment.')
+  .option('--checkout-function-url [value]', 'Use to set custom checkout function api url, if you don\'t want the default value assigned to current environment.')
   .option('--hub-url [value]', 'Use to set custom hub url, if you don\'t want the default value assigned to current environment.')
   .option('--payroll-api-url [value]', 'Use to set custom payroll api url, if you don\'t want the default value assigned to current environment.')
   .parse(process.argv);
