@@ -28,6 +28,7 @@ program
   .option('--hub-url [value]', 'Use to set custom hub url, if you don\'t want the default value assigned to current environment.')
   .option('--payroll-api-url [value]', 'Use to set custom payroll api url, if you don\'t want the default value assigned to current environment.')
   .option('--segment-key [value]', 'The Segment key to use for tracked events. If not provided, all events will be logged to console.')
+  .option('--external-configs [value]', 'The external configs override.')
   .parse(process.argv);
 
 try {
