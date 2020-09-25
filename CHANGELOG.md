@@ -1,3 +1,10 @@
+<a name="1.5.17"></a>
+# [1.5.17](https://github.com/getbeyond/beyond-cli/compare/v1.5.16...v1.5.17) (2020-09-25)
+
+### Features
+* New param for dev/serve commands --external-configs;
+* Defaults for seller accounts and seller demo accounts.
+
 <a name="1.5.16"></a>
 # [1.5.16](https://github.com/getbeyond/beyond-cli/compare/v1.5.15...v1.5.16) (2020-09-22)
 
