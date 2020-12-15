@@ -10,6 +10,7 @@ setupConsoleLoggingHelpers();
 
 program
   .option('-w, --watch', 'Watch files for changes and re-run tests automatically.')
+  .option('--coverage-dir [value]', 'Custom test coverage directory path')
   .parse(process.argv);
 
 try {
