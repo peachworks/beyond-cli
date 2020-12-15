@@ -9,12 +9,13 @@ let setupConsoleLoggingHelpers = require('../lib/setup-console-logging-helpers')
 setupConsoleLoggingHelpers();
 
 program
+  .option('--dist-dir [value]', 'Custom dist directory path')
   .parse(process.argv);
 
 try {
 
-  let buildProcess = new BuildProcess(new CLIConfig());
-  let cleanPromise = new Promise(buildProcess.clean);
+  let buildProcess = new BuildProcess(new CLIConfig(program));
+  let cleanPromise = new Promise(buildProcess.clean.bind(buildProcess));
 
   cleanPromise
     .then(() => {
