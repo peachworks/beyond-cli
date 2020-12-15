@@ -10,7 +10,6 @@ setupConsoleLoggingHelpers();
 
 program
   .option('-v, --verbose', 'Verbose build output.')
-  .option('--dist-dir [value]', 'Custom dist directory path')
   .option('--skip-dp-check', 'Skips dependencies check.')
   .option('--preserve-symlinks', 'Preserve symbolic links during build.')
   .parse(process.argv);
