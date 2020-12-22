@@ -2,7 +2,7 @@
 
 'use strict';
 
-process.env.NODE_EXTRA_CA_CERTS = __dirname + '/ssl/wild.cli.getbeyond.com.cacert';
+process.env.NODE_EXTRA_CA_CERTS = __dirname + '/../lib/ssl/wild.cli.getbeyond.com.cacert';
 
 let CLIConfig     = require('../lib/config');
 let login         = require('../lib/login');
