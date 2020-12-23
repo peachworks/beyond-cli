@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 'use strict';
 
-process.env.NODE_EXTRA_CA_CERTS = __dirname + '/../lib/ssl/wild.cli.getbeyond.com.cacert';
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
-let CLIConfig                  = require('../lib/config');
-let login                      = require('../lib/login');
-let program                    = require('commander');
-let RunnerProcess              = require('../lib/runner-process');
-let setupConsoleLoggingHelpers = require('../lib/setup-console-logging-helpers');
+const CLIConfig = require('../lib/config'),
+  login = require('../lib/login'),
+  program = require('commander'),
+  RunnerProcess = require('../lib/runner-process'),
+  setupConsoleLoggingHelpers = require('../lib/setup-console-logging-helpers');
 
 setupConsoleLoggingHelpers();
 
@@ -28,18 +28,22 @@ program
   .option('--checkout-client-url [value]', 'Use to set custom checkout client (store) url, if you don\'t want the default value assigned to current environment.')
   .option('--checkout-function-url [value]', 'Use to set custom checkout function api url, if you don\'t want the default value assigned to current environment.')
   .option('--dist-dir [value]', 'Custom dist directory path')
+  .option('--external-configs [value]', 'The external configs override.')
   .option('--hub-url [value]', 'Use to set custom hub url, if you don\'t want the default value assigned to current environment.')
   .option('--payroll-api-url [value]', 'Use to set custom payroll api url, if you don\'t want the default value assigned to current environment.')
   .option('--preserve-symlinks', 'Preserve symbolic links during build.')
   .option('--segment-key [value]', 'The Segment key to use for tracked events. If not provided, all events will be logged to console.')
-  .option('--external-configs [value]', 'The external configs override.')
+  .option('--skip-login', 'Doesn\'t log in developer/user - so far only useful for web2 development')
   .parse(process.argv);
 
 try {
 
-  let config = new CLIConfig(program);
+  const config = new CLIConfig(program);
+  const loginPromise = config.skipLogin ?
+    Promise.resolve.bind(Promise, true) :
+    login.bind(this, config);
 
-  login(config)
+  loginPromise()
     .then((loggedIn) => {
 
       if (loggedIn) {
