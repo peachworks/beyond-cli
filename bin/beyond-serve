@@ -1,8 +1,6 @@
 #!/usr/bin/env node
 'use strict';
 
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-
 const _ = require('lodash'),
   CLIConfig = require('../lib/config'),
   login = require('../lib/login'),
@@ -39,6 +37,11 @@ try {
   const loginPromise = config.skipLogin ?
     Promise.resolve.bind(Promise, true) :
     login.bind(this, config);
+
+  if (config.ssl) {
+    console.info('↓ In ssl mode we use fake local certificates and disable their verification with NODE_TLS_REJECT_UNAUTHORIZED flag. Node v12 and up will throw a warning about this, but you don`t need to worry about that ↓');
+    process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+  }
 
   loginPromise()
     .then((loggedIn) => {
