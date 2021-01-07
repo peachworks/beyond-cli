@@ -1,3 +1,14 @@
+<a name="1.6.0"></a>
+# [1.6.0](https://github.com/getbeyond/beyond-cli/compare/v1.5.17...v1.6.0) (2021-01-07)
+
+### Features
+* New param for dev/serve commands --dist-dir;
+* New param for test command --coverage-dir;
+* Updated to webpack v5 - now supports node v12 and node v14
+
+### Bug Fixes
+* Dev command --dev-port param fixed
+
 <a name="1.5.17"></a>
 # [1.5.17](https://github.com/getbeyond/beyond-cli/compare/v1.5.16...v1.5.17) (2020-09-25)
 
