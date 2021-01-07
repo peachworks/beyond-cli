@@ -1,3 +1,9 @@
+<a name="1.6.1"></a>
+# [1.6.1](https://github.com/getbeyond/beyond-cli/compare/v1.6.0...v1.6.1) (2021-01-07)
+
+### Bug Fixes
+* Dev command fixes
+
 <a name="1.6.0"></a>
 # [1.6.0](https://github.com/getbeyond/beyond-cli/compare/v1.5.17...v1.6.0) (2021-01-07)
 
