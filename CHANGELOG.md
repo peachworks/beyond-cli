@@ -1,3 +1,9 @@
+<a name="1.6.2"></a>
+# [1.6.2](https://github.com/getbeyond/beyond-cli/compare/v1.6.1...v1.6.2) (2021-01-11)
+
+### Bug Fixes
+* Fixed problem with modules not found by webpack for web2 app
+
 <a name="1.6.1"></a>
 # [1.6.1](https://github.com/getbeyond/beyond-cli/compare/v1.6.0...v1.6.1) (2021-01-07)
 
