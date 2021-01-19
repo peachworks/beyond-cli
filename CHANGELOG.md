@@ -1,3 +1,9 @@
+<a name="1.6.3"></a>
+# [1.6.3](https://github.com/getbeyond/beyond-cli/compare/v1.6.2...v1.6.3) (2021-01-19)
+
+### Bug Fixes
+* Fixed issues with running apps local ng script on windows.
+
 <a name="1.6.2"></a>
 # [1.6.2](https://github.com/getbeyond/beyond-cli/compare/v1.6.1...v1.6.2) (2021-01-11)
 
