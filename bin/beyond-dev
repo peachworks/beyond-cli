@@ -31,12 +31,13 @@ program
   .option('--payroll-api-url [value]', 'Use to set custom payroll api url, if you don\'t want the default value assigned to current environment.')
   .option('--preserve-symlinks', 'Preserve symbolic links during build.')
   .option('--segment-key [value]', 'The Segment key to use for tracked events. If not provided, all events will be logged to console.')
+  .option('--skip-lint', 'Skips code linting.')
   .option('--skip-login', 'Doesn\'t log in developer/user - so far only useful for web2 development')
   .parse(process.argv);
 
 try {
 
-  const config = new CLIConfig(program);
+  const config = new CLIConfig(program.opts());
   const loginPromise = config.skipLogin ?
     Promise.resolve.bind(Promise, true) :
     login.bind(this, config);
@@ -51,7 +52,7 @@ try {
 
       if (loggedIn) {
         try {
-          let runnerProcess = new RunnerProcess(config);
+          const runnerProcess = new RunnerProcess(config);
           runnerProcess.start();
         } catch (ex) {
           return Promise.reject(ex);

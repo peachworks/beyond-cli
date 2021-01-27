@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 'use strict';
 
-let CLIConfig                  = require('../lib/config');
-let program                    = require('commander');
-let TestProcess                = require('../lib/test-process');
-let setupConsoleLoggingHelpers = require('../lib/setup-console-logging-helpers');
+const CLIConfig = require('../lib/config'),
+  program = require('commander'),
+  TestProcess = require('../lib/test-process'),
+  setupConsoleLoggingHelpers = require('../lib/setup-console-logging-helpers');
 
 setupConsoleLoggingHelpers();
 
@@ -15,8 +15,9 @@ program
 
 try {
 
-  let config = new CLIConfig(program);
-  let testProcess = new TestProcess(config);
+  const config = new CLIConfig(program.opts());
+  const testProcess = new TestProcess(config);
+
   testProcess.test();
 
 } catch (ex) {

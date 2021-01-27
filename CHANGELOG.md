@@ -1,3 +1,11 @@
+<a name="1.6.4"></a>
+# [1.6.4](https://github.com/getbeyond/beyond-cli/compare/v1.6.3...v1.6.4) (2021-01-27)
+
+### Features
+* Updated dependencies
+* Removed eslint config - external module will provide default rules
+* Updates required to run cli in docker
+
 <a name="1.6.3"></a>
 # [1.6.3](https://github.com/getbeyond/beyond-cli/compare/v1.6.2...v1.6.3) (2021-01-19)
 

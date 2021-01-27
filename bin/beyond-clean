@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 'use strict';
 
-let BuildProcess               = require('../lib/build-process');
-let CLIConfig                  = require('../lib/config');
-let program                    = require('commander');
-let setupConsoleLoggingHelpers = require('../lib/setup-console-logging-helpers');
+const BuildProcess = require('../lib/build-process'),
+  CLIConfig = require('../lib/config'),
+  program = require('commander'),
+  setupConsoleLoggingHelpers = require('../lib/setup-console-logging-helpers');
 
 setupConsoleLoggingHelpers();
 
@@ -14,8 +14,8 @@ program
 
 try {
 
-  let buildProcess = new BuildProcess(new CLIConfig(program));
-  let cleanPromise = new Promise(buildProcess.clean.bind(buildProcess));
+  const buildProcess = new BuildProcess(new CLIConfig(program.opts()));
+  const cleanPromise = new Promise(buildProcess.clean.bind(buildProcess));
 
   cleanPromise
     .then(() => {

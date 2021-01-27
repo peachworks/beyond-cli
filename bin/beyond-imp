@@ -1,14 +1,14 @@
 #!/usr/bin/env node
 'use strict';
 
-let adminLogin                 = require('../lib/admin-login');
-let CLIConfig                  = require('../lib/config');
-const constants                = require('../lib/const');
-const impersonate              = require('../lib/impersonate');
-let login                      = require('../lib/login');
-const open                     = require('open');
-let program                    = require('commander');
-let setupConsoleLoggingHelpers = require('../lib/setup-console-logging-helpers');
+const adminLogin = require('../lib/admin-login'),
+  CLIConfig = require('../lib/config'),
+  constants = require('../lib/const'),
+  impersonate = require('../lib/impersonate'),
+  login = require('../lib/login'),
+  open = require('open'),
+  program = require('commander'),
+  setupConsoleLoggingHelpers = require('../lib/setup-console-logging-helpers');
 
 setupConsoleLoggingHelpers();
 
@@ -22,15 +22,17 @@ program
 
 try {
 
-  if(!program.account && !program.user){
+  const opts = program.opts();
+
+  if(!opts.account && !opts.user){
     console.error('You need to specify a user or account to use (-a/--account or -u/--user)');
     return false;
   }
-  if(!!program.account && !!program.user){
+  if(!!opts.account && !!opts.user){
     console.error('You cannot specify both a user and an account.');
     return false;
   }
-  let config = new CLIConfig(program);
+  let config = new CLIConfig(opts);
   config.accountType = constants.ACCT_TYPE_CUSTOMER;
 
   if (config.ssl) {
@@ -45,13 +47,13 @@ try {
         try {
           const imp = impersonate(config);
           (
-            program.account ?
-              imp.getTokensForAccountOwner(program.account) :
-              imp.getTokensForUser(program.user)
+            opts.account ?
+              imp.getTokensForAccountOwner(opts.account) :
+              imp.getTokensForUser(opts.user)
           ).then(tokens => {
             console.log('Access Token: ' + tokens.access_token);
             console.log('Impersonation URL: ' + config.apiLoginUrl + '/impersonate/' + tokens.impersonate_secret);
-            if(program.open){
+            if(opts.open){
               open(config.apiLoginUrl + '/impersonate/' + tokens.impersonate_secret);
             }
           });

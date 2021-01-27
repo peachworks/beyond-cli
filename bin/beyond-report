@@ -2,11 +2,11 @@
 
 'use strict';
 
-let CLIConfig     = require('../lib/config');
-let login         = require('../lib/login');
-let program       = require('commander');
-let Report        = require('../lib/report/report');
-let Downloader    = require('../lib/report/downloader');
+const CLIConfig = require('../lib/config'),
+  login = require('../lib/login'),
+  program = require('commander'),
+  Report = require('../lib/report/report'),
+  Downloader = require('../lib/report/downloader');
 
 program
   .option('-c, --customer', 'Run against a customer account. Defaults to developer.')
@@ -27,7 +27,8 @@ program
 
 try {
 
-  let config = new CLIConfig(program);
+  const opts = program.opts();
+  const config = new CLIConfig(opts);
 
   if (config.ssl) {
     console.info('↓ In ssl mode we use fake local certificates and disable their verification with NODE_TLS_REJECT_UNAUTHORIZED flag. Node v12 and up will throw a warning about this, but you don`t need to worry about that ↓');
@@ -41,7 +42,7 @@ try {
 
         let report;
 
-        if (program.download) {
+        if (opts.download) {
           report = new Downloader(config);
         } else {
           report = new Report(config);
@@ -63,7 +64,5 @@ try {
 process.on('unhandledRejection', handleError);
 
 function handleError(error) {
-
   console.error(error.stack || error);
-
 }

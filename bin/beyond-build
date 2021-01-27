@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 'use strict';
 
-let BuildProcess               = require('../lib/build-process');
-let CLIConfig                  = require('../lib/config');
-let program                    = require('commander');
-let setupConsoleLoggingHelpers = require('../lib/setup-console-logging-helpers');
+const BuildProcess = require('../lib/build-process'),
+  CLIConfig = require('../lib/config'),
+  program = require('commander'),
+  setupConsoleLoggingHelpers = require('../lib/setup-console-logging-helpers');
 
 setupConsoleLoggingHelpers();
 
@@ -12,13 +12,14 @@ program
   .option('-v, --verbose', 'Verbose build output.')
   .option('--dist-dir [value]', 'Custom dist directory path')
   .option('--skip-dp-check', 'Skips dependencies check.')
+  .option('--skip-lint', 'Skips code linting.')
   .option('--preserve-symlinks', 'Preserve symbolic links during build.')
   .parse(process.argv);
 
 try {
 
-  let config = new CLIConfig(program);
-  let buildProcess = new BuildProcess(config);
+  const config = new CLIConfig(program.opts());
+  const buildProcess = new BuildProcess(config);
   buildProcess.build();
   
 } catch (ex) {

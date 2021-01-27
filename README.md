@@ -50,7 +50,7 @@ $ beyond test
 ### Develop
 The dev command will require Beyond Developer credentials in order to run. It will gather information regarding your app from the Developer Portal registry, in order to give you the ability to test against permissions, locations, and other features
 
-ESLint is integrated and configured by default. To override rules, create a .eslintrc file in the root of your project and refer to the below ESLint rules documentation in the link provided.
+Run/Dev commands always lint the code by default before anything else - ensure you have eslint configured in your project
 
 Refer:
 * [ESLint](http://eslint.org/docs/rules/)

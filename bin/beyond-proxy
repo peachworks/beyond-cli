@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 'use strict';
 
-let _                          = require('lodash');
-let CLIConfig                  = require('../lib/config');
-let login                      = require('../lib/login');
-let program                    = require('commander');
-let Proxy                      = require('../lib/proxy');
-let setupConsoleLoggingHelpers = require('../lib/setup-console-logging-helpers');
+const _ = require('lodash'),
+  CLIConfig = require('../lib/config'),
+  login = require('../lib/login'),
+  program = require('commander'),
+  Proxy = require('../lib/proxy'),
+  setupConsoleLoggingHelpers = require('../lib/setup-console-logging-helpers');
 
 setupConsoleLoggingHelpers();
 
@@ -24,7 +24,7 @@ program
 
 try {
 
-  let config = new CLIConfig(program);
+  const config = new CLIConfig(program.opts());
 
   if (config.ssl) {
     console.info('↓ In ssl mode we use fake local certificates and disable their verification with NODE_TLS_REJECT_UNAUTHORIZED flag. Node v12 and up will throw a warning about this, but you don`t need to worry about that ↓');

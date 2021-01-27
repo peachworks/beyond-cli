@@ -33,7 +33,7 @@ program
 
 try {
 
-  const config = new CLIConfig(_.extend({}, program, {serveDist: true}));
+  const config = new CLIConfig(_.extend({}, program.opts(), {serveDist: true}));
   const loginPromise = config.skipLogin ?
     Promise.resolve.bind(Promise, true) :
     login.bind(this, config);
@@ -48,7 +48,7 @@ try {
 
       if (loggedIn) {
         try {
-          let runnerProcess = new RunnerProcess(config);
+          const runnerProcess = new RunnerProcess(config);
           runnerProcess.start();
         } catch (ex) {
           return Promise.reject(ex);
